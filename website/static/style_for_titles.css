@@ -1,0 +1,30 @@
+/* Custom CSS for the titles */
+.container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.image {
+    flex: 1;
+    padding: 10px;
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.content {
+    flex: 2;
+    padding: 10px;
+}
+
+.add-to-cart-button {
+    background-color: #4CAF50; /* Change this color as needed */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}

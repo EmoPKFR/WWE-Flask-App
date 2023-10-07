@@ -1,0 +1,26 @@
+/* Style for the image containers */
+.image-container {
+    text-align: center;
+    width: 33.33%; /* Adjust the width as needed for equal spacing */
+    float: left;
+    margin-bottom: 20px; /* Add spacing between image containers */
+}
+
+/* Style for the images */
+.image-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Style for the text below the images */
+.image-text {
+    text-align: center;
+    margin-top: 10px; /* Add spacing between the image and text */
+}
+
+/* Clear the float to prevent layout issues */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}

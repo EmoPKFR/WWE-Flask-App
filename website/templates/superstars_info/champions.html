@@ -1,0 +1,33 @@
+{%extends "base.html"%}
+
+{%block title%}Champions{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="static/dark-mode.css">
+<link rel="stylesheet" href="static/superstars.css">
+{%endblock%}
+{%block content%}
+<h1>Champions</h1>
+<br>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Roman_Reigns.jpg') }}" alt="Image 1">
+        <p>Roman Reigns</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Seth_Rollins.jpg') }}" alt="Image 2">
+        <p>Seth "Freakin" Rollins</p>
+    </div>
+    
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Rey_Mysterio.jpg') }}" alt="Image 3">
+        <p>Rey Mysterio</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Carmelo_Hayes.jpg') }}" alt="Image 3">
+        <p>Carmelo Hayes</p>
+    </div>
+</div>
+
+    
+    <!-- <div class="clearfix"></div> Clear the float to prevent layout issues -->
+{%endblock%}

@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+
+{%block title%}Profile Page{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="static/dark-mode.css">
+<link rel="stylesheet" href="static/profile_page.css">
+{%endblock%}
+{%block content%}
+<form method="POST">
+    <h3 align="center">Hi, {{user.username}}</h3>
+    <div class="form-group">
+        <p align="center">You can change your password or delete your account.</p>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary custom-size-btn" name="change_password">Change password</button>
+    <br>
+    <button type="submit" class="btn btn-danger custom-size-btn" name="delete_account">Delete account</button>
+</form>
+{%endblock%}

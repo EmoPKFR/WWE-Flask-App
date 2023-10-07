@@ -1,0 +1,55 @@
+{%extends "base.html"%}
+{%block title%}Titles{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="static/dark-mode.css">
+<link rel="stylesheet" href="static/style_for_titles.css">
+{%endblock%}
+{%block content%}
+<form method="POST">
+    <div class="container">
+        <div class="image">
+            <img src="{{ url_for('static', filename='images/shop_images/WWE_World_Heavyweight_Championship_title.png') }}" alt="Image 1">
+        </div>
+        <div class="content">
+            <h2>WWE World Heavyweight Championship title</h2>
+            <p>Championship holders: 142.</p>
+            <p>Longest reign: 529 days by Roman Reigns</p>
+            <p>Shortest reign: 8 days by The Mizz</p>
+            <p>Price: 400€</p>
+            <button type="submit" class="add-to-cart-button">Add to Cart</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="image">
+            <img src="{{ url_for('static', filename='images/shop_images/WWE_World_Championship_title.png') }}" alt="Image 2">
+            <a href="/product_info?img=/static/images/t-shirts/t-shirt1.jpg&product_name=Stone Cold Steve Austin Red Skull&price=25€&size=M">
+                <img src="{{ url_for('static', filename='images/t-shirts/t-shirt1.jpg') }}" alt="Image 1">
+            </a>
+        </div>
+        <div class="content">
+            <h2>WWE World Championship title</h2>
+            <p>Championship holders: 1.</p>
+            <p>Longest reign: 110 days by Seth "Freakin" Rollins</p>
+            <p>Shortest reign: 110 days by Seth "Freakin" Rollins</p>
+            <p>Price: 300€</p>
+            <button type="submit" class="add-to-cart-button">Add to Cart</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="image">
+            <img src="{{ url_for('static', filename='images/shop_images/WWE_Universal_Championship_title.png') }}" alt="Image 3">
+        </div>
+        <div class="content">
+            <h2>WWE Universal Championship title</h2>
+            <p>Championship holders: 15.</p>
+            <p>Longest reign: 1110 days by Roman Reigns</p>
+            <p>Shortest reign: 6 days by Bray Wyatt</p>
+            <p>Price: 380€</p>
+            <button type="submit" class="add-to-cart-button">Add to Cart</button>
+        </div>
+    </div>
+</form>
+{%endblock%}
+    

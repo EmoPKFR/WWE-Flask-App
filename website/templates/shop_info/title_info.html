@@ -1,0 +1,26 @@
+{%extends "base.html"%}
+{%block title%}Product Info{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="static/dark-mode.css">
+<link rel="stylesheet" href="static/product_info.css">
+{%endblock%}
+{%block content%}
+<form method="POST">
+    <div class="center-container">
+        <div class="product-card">
+            <input type="hidden" name="img" value="{{ img }}">
+            <input type="hidden" name="product_title" value="{{ product_name }}">
+            <input type="hidden" name="product_price" value="{{ price }}">
+            <input type="hidden" name="product_size" value="Regular size">
+
+            <img src="{{ img }}" alt="Product Image" class="product-image" name="product_image">
+            <div class="product-details">
+                <div class="product-title">{{product_name}}</div>
+                <div class="product-price">{{price}}</div>
+            </div>
+            <input type="number" class="quantity-input" name="quantity_input" value="1" min="1" max="10">
+            <button type="submit" class="add-to-cart-button">Add to Cart</button>
+        </div>
+    </div>
+</form>
+{%endblock%}

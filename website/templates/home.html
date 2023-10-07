@@ -1,0 +1,9 @@
+{%extends "base.html"%}
+
+{%block title%}Home{%endblock%}
+{%block content%}
+<h1 align="center">Hello, {{user.username}}</h1>
+<h1 align="center">Welcome to WWE Home page</h1>
+<br>
+<p style="text-align:center;"><img src="{{ url_for('static', filename='images/logo_images/wwelogo.png') }}" width="300" height="300" alt="Logo"></p>
+{%endblock%}

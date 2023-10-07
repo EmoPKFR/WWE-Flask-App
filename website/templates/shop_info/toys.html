@@ -1,0 +1,123 @@
+{%extends "base.html"%}
+
+{%block title%}Toys{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="static/dark-mode.css">
+<link rel="stylesheet" href="static/t-shirts.css">
+{%endblock%}
+{%block content%}
+<h1>Toys</h1>
+<br>
+<div class="image-container">
+    <div class="image-item">   
+        <a href="/toy_info?img=/static/images/toys_images/Drew_McIntyre_Toy.jpg&product_name=Drew McIntyre Toy&price=30€">
+            <img src="{{ url_for('static', filename='images/toys_images/Drew_McIntyre_Toy.jpg') }}" alt="Image 1">
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Aj_Styles_Toy.jpg&product_name=Drew McIntyre Toy&price=30€">
+            <p>Drew McIntyre</p>
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Aj_Styles_Toy.jpg&product_name=Drew McIntyre Toy&price=30€">
+            <p>Price: 30€</p>
+        </a>  
+    </div>
+    
+    <div class="image-item">
+        <a href="/toy_info?img=/static/images/toys_images/John_Cena_Toy.jpg&product_name=John Cena Toy&price=25€">
+            <img src="{{ url_for('static', filename='images/toys_images/John_Cena_Toy.jpg') }}" alt="Image 1">
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/John_Cena_Toy.jpg&product_name=John Cena Toy&price=25€">
+            <p>John Cena</p>
+        </a>      
+        <a href="/toy_info?img=/static/images/toys_images/John_Cena_Toy.jpg&product_name=John Cena Toy&price=25€">
+            <p>Price: 25€</p>
+        </a> 
+    </div>
+
+    <div class="image-item">
+        <a href="/toy_info?img=/static/images/toys_images/Roman_Reigns_Toy.jpg&product_name=Roman Reigns Toy&price=38€">
+            <img src="{{ url_for('static', filename='images/toys_images/Roman_Reigns_Toy.jpg') }}" alt="Image 1">
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Roman_Reigns_Toy.jpg&product_name=Roman Reigns Toy&price=38€">
+            <p>Roman Reigns</p>
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Roman_Reigns_Toy.jpg&product_name=Roman Reigns Toy&price=38€">
+            <p>Price: 38€</p>
+        </a> 
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">   
+        <a href="/toy_info?img=/static/images/toys_images/Batista_Toy.jpg&product_name=Batista Toy&price=30€">
+            <img src="{{ url_for('static', filename='images/toys_images/Batista_Toy.jpg') }}" alt="Image 1">
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Batista_Toy.jpg&product_name=Batista Toy&price=30€">
+            <p>Batista</p>
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Batista_Toy.jpg&product_name=Batista Toy&price=30€">
+            <p>Price: 30€</p>
+        </a> 
+    </div>
+    
+    <div class="image-item">   
+        <a href="/toy_info?img=/static/images/toys_images/Brock_Lesnar_Toy.jpg&product_name=Brock Lesnar Toy&price=30€">
+            <img src="{{ url_for('static', filename='images/toys_images/Brock_Lesnar_Toy.jpg') }}" alt="Image 1">
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Brock_Lesnar_Toy.jpg&product_name=Brock Lesnar Toy&price=30€">
+            <p>Brock Lesnar</p>
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Brock_Lesnar_Toy.jpg&product_name=Brock Lesnar Toy&price=30€">
+            <p>Price: 30€</p>
+        </a> 
+    </div>
+
+    <div class="image-item">   
+        <a href="/toy_info?img=/static/images/toys_images/Shawn_Michaels_Toy.jpg&product_name=Shawn Michaels Toy&price=32€">
+            <img src="{{ url_for('static', filename='images/toys_images/Shawn_Michaels_Toy.jpg') }}" alt="Image 1">
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Shawn_Michaels_Toy.jpg&product_name=Shawn Michaels Toy&price=32€">
+            <p>Shawn Michaels</p>
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Shawn_Michaels_Toy.jpg&product_name=Shawn Michaels Toy&price=32€">
+            <p>Price: 32€</p>
+        </a> 
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">   
+        <a href="/toy_info?img=/static/images/toys_images/Edge_Toy.jpg&product_name=Edge Toy&price=35€">
+            <img src="{{ url_for('static', filename='images/toys_images/Edge_Toy.jpg') }}" alt="Image 1">
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Edge_Toy.jpg&product_name=Edge Toy&price=35€">
+            <p>Edge</p>
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Edge_Toy.jpg&product_name=Edge Toy&price=35€">
+            <p>Price: 35€</p>
+        </a> 
+    </div>
+    
+    <div class="image-item">   
+        <a href="/toy_info?img=/static/images/toys_images/The_Rock_Toy.jpg&product_name=The Rock Toy&price=33€">
+            <img src="{{ url_for('static', filename='images/toys_images/The_Rock_Toy.jpg') }}" alt="Image 1">
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/The_Rock_Toy.jpg&product_name=The Rock Toy&price=33€">
+            <p>The Rock</p>
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/The_Rock_Toy.jpg&product_name=The Rock Toy&price=33€">
+            <p>Price: 33€</p>
+        </a> 
+    </div>
+
+    <div class="image-item">   
+        <a href="/toy_info?img=/static/images/toys_images/Rey_Mysterio_Toy.jpg&product_name=Rey Mysterio Toy&price=40€">
+            <img src="{{ url_for('static', filename='images/toys_images/Rey_Mysterio_Toy.jpg') }}" alt="Image 1">
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Rey_Mysterio_Toy.jpg&product_name=Rey Mysterio Toy&price=40€">
+            <p>Rey Mysterio</p>
+        </a>
+        <a href="/toy_info?img=/static/images/toys_images/Rey_Mysterio_Toy.jpg&product_name=Rey Mysterio Toy&price=40€">
+            <p>Price: 40€</p>
+        </a> 
+    </div>
+</div>
+    <!-- <div class="clearfix"></div> Clear the float to prevent layout issues -->
+{%endblock%}

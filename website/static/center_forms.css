@@ -1,0 +1,12 @@
+.form-group {
+    margin-left: 400px; /* Adjust this value to increase or decrease the white space */
+    margin-right: 400px; /* Adjust this value to increase or decrease the white space */
+    }
+  
+  .custom-size-btn {
+    margin-left: 400px; 
+    margin-right: 400px;
+    width: 180px; /* Adjust this value to set the desired width for your buttons */
+    height: 40px; /* Adjust this value to set the desired height for your buttons */
+  }
+  

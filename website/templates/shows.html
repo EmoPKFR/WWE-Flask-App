@@ -1,0 +1,26 @@
+{%extends "base.html"%}
+
+{%block title%}Shop{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="static/dark-mode.css">
+<link rel="stylesheet" href="static/shows.css">
+{%endblock%}
+{%block content%}
+
+    <div class="image-container">
+        <a href="{{ url_for('views.t_shirts') }}"><img src="{{ url_for('static', filename='images/logo_images/raw.jpg') }}" alt="Image 1"></a>
+        <a href=""><p class="image-text">RAW</p></a>
+    </div>
+    
+    <div class="image-container">
+        <a href="{{ url_for('views.titles') }}"><img src="{{ url_for('static', filename='images/logo_images/smackdown.jpg') }}" alt="Image 2"></a>
+        <a href=""><p class="image-text">Smack Down</p></a>
+    </div>
+    
+    <div class="image-container">
+        <a href="{{ url_for('views.toys') }}"><img src="{{ url_for('static', filename='images/logo_images/nxt.jpg') }}" alt="Image 3"></a>
+        <a href=""><p class="image-text">NXT</p></a>
+    </div>
+
+    <div class="clearfix"></div> <!-- Clear the float to prevent layout issues -->
+{%endblock%}

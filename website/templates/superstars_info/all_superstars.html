@@ -1,0 +1,148 @@
+{%extends "base.html"%}
+
+{%block title%}All Superstars{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="static/dark-mode.css">
+<link rel="stylesheet" href="static/superstars.css">
+{%endblock%}
+{%block content%}
+<h1>All Superstars</h1>
+<br>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/AJ_Styles.jpg') }}" alt="Image 3">
+        <p>AJ Styles</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Bobby_Lashley.jpg') }}" alt="Image 3">
+        <p>Bobby Lashley</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Braun_Strowman.jpg') }}" alt="Image 1">
+        <p>Braun Strowman</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Brock_Lesnar.jpg') }}" alt="Image 2">
+        <p>Brock Lesnar</p>
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Candice_LeRae.jpg') }}" alt="Image 3">
+        <p>Candice LeRae</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Carmelo_Hayes_profile.jpg') }}" alt="Image 3">
+        <p>Carmelo Hayes</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Charlotte_Flair.jpg') }}" alt="Image 3">
+        <p>Charlotte Flair</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Cody_Rhodes.jpg') }}" alt="Image 3">
+        <p>Cody Rhodes</p>
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Edge.jpg') }}" alt="Image 3">
+        <p>Edge</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Jerry_Lawler.jpg') }}" alt="Image 1">
+        <p>Jerry Lawler</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Jey_Uso.jpg') }}" alt="Image 2">
+        <p>Jey Uso</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Jimmy_Uso.jpg') }}" alt="Image 3">
+        <p>Jimmy Uso</p>
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/John_Cena.jpg') }}" alt="Image 3">
+        <p>John Cena</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Kevin_Owens.jpg') }}" alt="Image 1">
+        <p>Kevin Owens</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Logan_Paul.jpg') }}" alt="Image 2">
+        <p>Logan Paul</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/MVP.jpg') }}" alt="Image 3">
+        <p>MVP</p>
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Omos.jpg') }}" alt="Image 3">
+        <p>Omos</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Otis.jpg') }}" alt="Image 3">
+        <p>Otis</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Paul_Heyman.jpg') }}" alt="Image 3">
+        <p>Paul Heyman</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/R-Truth.jpg') }}" alt="Image 3">
+        <p>R-Truth</p>
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Randy_Orton.jpg') }}" alt="Image 3">
+        <p>Randy Orton</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Rey_Mysterio_profile.jpg') }}" alt="Image 3">
+        <p>Rey Mysterio</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Ricochet.jpg') }}" alt="Image 3">
+        <p>Ricochet</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Roman_Reigns_profile.jpg') }}" alt="Image 3">
+        <p>Roman Reigns</p>
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Seth_Rollins_profile.jpg') }}" alt="Image 3">
+        <p>Seth "Freakin" Rollins</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Shane_McMahon.jpg') }}" alt="Image 3">
+        <p>Shane McMahon</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Sheamus.jpg') }}" alt="Image 3">
+        <p>Sheamus</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Shelton_Benjamin.jpg') }}" alt="Image 3">
+        <p>Shelton Benjamin</p>
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Triple_H.jpg') }}" alt="Image 3">
+        <p>Triple H</p>
+    </div>
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Wade_Barrett.jpg') }}" alt="Image 3">
+        <p>Wade Barrett</p>
+    </div>
+</div>
+    <!-- <div class="clearfix"></div> Clear the float to prevent layout issues -->
+{%endblock%}

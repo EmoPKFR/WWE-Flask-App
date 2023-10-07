@@ -1,0 +1,191 @@
+{%extends "base.html"%}
+
+{%block title%}T-shirts{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="static/dark-mode.css">
+<link rel="stylesheet" href="static/t-shirts.css">
+{%endblock%}
+{%block content%}
+<h1>T-shirts</h1>
+<br>
+<div class="image-container">
+    <div class="image-item">   
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt1.jpg&product_name=Stone Cold Steve Austin Red Skull&price=25€&size=M">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt1.jpg') }}" alt="Image 1">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt1.jpg&product_name=Stone Cold Steve Austin Red Skull&price=25€">
+            <p>"Stone Cold" Steve Austin Red Skull</p>
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt1.jpg&product_name=Stone Cold Steve Austin Red Skull&price&price=25€">
+            <p>Price: 25€</p>
+        </a>  
+    </div>
+    
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt2.jpg&product_name=Kane The Big Red Machine&price=25€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt2.jpg') }}" alt="Image 2">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt2.jpg&product_name=Stone Cold Steve Austin Red Skull&price=25€">
+            <p>Kane The Big Red Machine</p>
+        </a>
+        
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt2.jpg&product_name=Kane The Big Red Machine&price&price=25€">
+            <p>Price: 25€</p>
+        </a> 
+    </div>
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt3.jpg&product_name=The Rock Legends&price=25€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt3.jpg') }}" alt="Image 3">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt3.jpg&product_name=The Rock Legends&price=25€">
+            <p>The Rock Legends</p>
+        </a>
+        
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt3.jpg&product_name=The Rock Legends&price&price=25€">
+            <p>Price: 25€</p>
+        </a> 
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt4.jpg&product_name=Jey Uso Main Event&price=25€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt4.jpg') }}" alt="Image 4">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt4.jpg&product_name=Jey Uso Main Event&price=25€">
+            <p>Jey Uso Main Event</p>
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt4.jpg&product_name=Jey Uso Main Event&price=25€">
+            <p>Price: 25€</p>
+        </a> 
+    </div>
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt5.jpg&product_name=Sumerslam 2023 Roman Reigns vs Jey Uso Match&price=24€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt5.jpg') }}" alt="Image 5">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt5.jpg&product_name=Sumerslam 2023 Roman Reigns vs Jey Uso Match&price=24€">
+            <p>Sumerslam 2023 Roman Reigns vs Jey Uso Match</p>
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt5.jpg&product_name=Sumerslam 2023 Roman Reigns vs Jey Uso Match&price=24€">
+            <p>Price: 24€</p>
+        </a> 
+    </div>
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt6.jpg&product_name=Seth Rollins Whoa Ohh Ohh&price=25€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt6.jpg') }}" alt="Image 6">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt6.jpg&product_name=Seth Rollins Whoa Ohh Ohh&price=25€">
+            <p>Seth Rollins Whoa Ohh Ohh</p>
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt6.jpg&product_name=Seth Rollins Whoa Ohh Ohh&price=25€">
+            <p>Price: 25€</p>
+        </a> 
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt7.jpg&product_name=The Undertaker Hell's Gate&price=25€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt7.jpg') }}" alt="Image 7">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt7.jpg&product_name=The Undertaker Hell's Gate&price=25€">
+            <p>The Undertaker Hell's Gate</p>
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt7.jpg&product_name=The Undertaker Hell's Gate&price=25€">
+            <p>Price: 25€</p>
+        </a> 
+    </div>
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt8.jpg&product_name=Asuka Beware The Empress&price=30€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt8.jpg') }}" alt="Image 8">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt8.jpg&product_name=Asuka Beware The Empress&price=30€">
+            <p>Asuka Beware The Empress</p>
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt8.jpg&product_name=Asuka Beware The Empress&price=30€">
+            <p>Price: 30€</p>
+        </a>
+    </div>
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt9.jpg&product_name=Kevin Owens Just Keep Fighting&price=25€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt9.jpg') }}" alt="Image 9">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt9.jpg&product_name=Kevin Owens Just Keep Fighting&price=25€">
+            <p>Kevin Owens Just Keep Fighting</p>
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt9.jpg&product_name=Kevin Owens Just Keep Fighting&price=25€">
+            <p>Price: 25€</p>
+        </a> 
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">
+        <a href="/shop_info/product_info?img=/static/images/t-shirts/t-shirt10.jpg&product_name=Roman Reigns Headliner Graphic&price=25€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt10.jpg') }}" alt="Image 10">
+        </a>
+        <a href="shop_info/product_info?img=/static/images/t-shirts/t-shirt10.jpg&product_name=Roman Reigns Headliner Graphic&price=25€">
+            <p>Roman Reigns Headliner Graphic</p>
+        </a>
+        <a href="shop_info/product_info?img=/static/images/t-shirts/t-shirt10.jpg&product_name=Roman Reigns Headliner Graphic&price=25€">
+            <p>Price: 25€</p>
+        </a> 
+    </div>
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt11.jpg&product_name=Rey Mysterio &quot;I Am Lucha 619&quot; Authentic&price=25€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt11.jpg') }}" alt="Image 11">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt11.jpg&product_name=Rey Mysterio &quot;I Am Lucha 619&quot; Authentic&price=25€">
+            <p>Rey Mysterio ''I Am Lucha 619'' Authentic</p>
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt11.jpg&product_name=Rey Mysterio &quot;I Am Lucha 619&quot; Authentic&price=25€">
+            <p>Price: 25€</p>
+        </a> 
+    </div>
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt12.jpg&product_name=John Cena Never Give Up&price=26€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt12.jpg') }}" alt="Image 12">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt12.jpg&product_name=John Cena Never Give Up&price=26€">
+            <p>John Cena Never Give Up</p>
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt12.jpg&product_name=John Cena Never Give Up&price=26€">
+            <p>Price: 26€</p>
+        </a> 
+    </div>
+</div>
+<div class="image-container">
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt13.jpg&product_name=Youth 500 black John Cena Tenation&price=23€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt13.jpg') }}" alt="Image 12">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt13.jpg&product_name=Youth 500 black John Cena Tenation&price=23€">
+            <p>Youth 500 black John Cena Tenation</p>
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt13.jpg&product_name=Youth 500 black John Cena Tenation&price=23€">
+            <p>Price: 23€</p>
+        </a> 
+    </div>
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt14.jpg&product_name=Drew McIntyre Cloud&price=25€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt14.jpg') }}" alt="Image 12">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt14.jpg&product_name=Drew McIntyre Cloud&price=25€">
+            <p>Drew McIntyre Cloud</p>
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt14.jpg&product_name=Drew McIntyre Cloud&price=25€">
+            <p>Price: 25€</p>
+        </a> 
+    </div>
+    <div class="image-item">
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt15.jpg&product_name=Monday Night RAW Logo Graphic&price=28€">
+            <img src="{{ url_for('static', filename='images/t-shirts/t-shirt15.jpg') }}" alt="Image 12">
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt15.jpg&product_name=Monday Night RAW Logo Graphic&price=28€">
+            <p>Monday Night Monday Night RAW Logo Graphic</p>
+        </a>
+        <a href="/product_info?img=/static/images/t-shirts/t-shirt15.jpg&product_name=Monday Night RAW Logo Graphic&price=28€">
+            <p>Price: 28€</p>
+        </a> 
+    </div>
+</div>
+    
+    <!-- <div class="clearfix"></div> Clear the float to prevent layout issues -->
+{%endblock%}
