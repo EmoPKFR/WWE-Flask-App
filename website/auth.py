@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from .models import User, Order
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db ##means from __init__.py import db
@@ -49,12 +49,12 @@ def register():
             flash("Email must be greater than 2 characters.", category="error")
         elif username_check:
             flash("Username already exists.", category="error")
-        elif len(username) < 2:
-            flash("Username must be greater than 5 characters.", category="error")
+        elif len(username) <= 2:
+            flash("Username must be greater than 2 characters.", category="error")
         elif password1 != password2:
             flash("Passwords don't match.", category="error")
         elif len(password1) < 3:
-            flash("Password must be at least 6 characters.", category="error")
+            flash("Password must be at least 3 characters.", category="error")
         elif not card_number and not expiry_date and not cvv:
             new_user = User(email=email, username=username, password=generate_password_hash(password1, method="sha256"))
             db.session.add(new_user)
@@ -185,6 +185,7 @@ def admin():
         admin_password = "aaa"
         password = request.form.get("password")
         if password == admin_password:
+            session['admin_authenticated'] = True
             flash("Welcome to the Database", category="success")
             return redirect(url_for("auth.database"))
         else:
@@ -197,6 +198,10 @@ def admin():
 def database():
     if request.method == "POST":
         pass
+    
+    if not session.get('admin_authenticated'):  # Check if the user is authenticated
+        flash("Please log in as admin first", category="error")
+        return redirect(url_for("auth.admin"))
     
     users = User.query.all()
     orders = Order.query.all()
