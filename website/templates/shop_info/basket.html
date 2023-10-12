@@ -16,7 +16,7 @@
             Quantity: {{ details['quantity'] }}<br>
             Price: {{ details['product_price'] }}€<br>
             Total Price: {{ details['product_price'] }}€ * {{ details['quantity'] }} = {{ details['total_price']}}€<br>
-            Size: {{ details['product_size'] }}<br>
+            <!-- Size: {{ details['product_size'] }}<br> -->
 
             <form method="POST" action="/remove_product">
                 <input type="hidden" name="product_title" value="{{ product_title }}">
@@ -26,5 +26,21 @@
         {% endfor %}
     </ul>
     <h2>Total Price: {{ total_amount }}€</h2>
+    {%if total_amount > 0%}
+    <form method="POST">
+        <div class="form-group">
+            <label for="shipping_address">Shipping Address:</label>
+            <br>
+            <textarea id="shipping_address" name="shipping_address" rows="4" cols="70" minlength="20" maxlength="1000"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success custom-size-btn">Buy</button>
+    </form>
+    {%else%}
+        <a href="/shop">Add Product/Products</a>
+        
+        
+    {%endif%}
+    
 </div>
 {%endblock%}

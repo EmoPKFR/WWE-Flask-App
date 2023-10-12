@@ -3,7 +3,7 @@
 {%block title%}Register{%endblock%}
 {%block custom_css%}
 <link rel="stylesheet" href="static/dark-mode.css">
-<link rel="stylesheet" href="static/center_forms.css">
+<link rel="stylesheet" href="static/login_register.css">
 {%endblock%}
 {%block content%}
 <form method="POST">
@@ -15,25 +15,28 @@
         class="form-control" 
         id="email" 
         name="email" 
-        placeholder="Enter email">
+        placeholder="Enter Email"
+        maxlength="40">
     </div>
     <div class="form-group">
-        <label for="username">Username:</label>
+        <label for="username">Username: (5 characters or more)</label>
         <input 
         type="text" 
         class="form-control" 
         id="username" 
         name="username" 
-        placeholder="Enter Username">
+        placeholder="Enter Username"
+        maxlength="20">
     </div>
     <div class="form-group">
-        <label for="password1">Password:</label>
+        <label for="password1">Password: (6 characters or more)</label>
         <input 
         type="password" 
         class="form-control" 
         id="password1" 
         name="password1" 
-        placeholder="Enter Password">
+        placeholder="Enter Password"
+        maxlength="50">
     </div>
     <div class="form-group">
         <label for="password2">Confirm Password:</label>
@@ -42,9 +45,42 @@
         class="form-control" 
         id="password2" 
         name="password2" 
-        placeholder="Confirm Password">
+        placeholder="Confirm Password"
+        maxlength="50">
+    </div>
+    <div class="form-group">
+        <label for="card_number">Card number:</label>
+        <input 
+        type="text" 
+        class="form-control" 
+        id="card_number" 
+        name="card_number" 
+        placeholder="Enter Card Number"
+        maxlength="10">
+    </div>
+    <div class="form-group">
+        <label for="expiry_date">Expiry date (MM/YY):</label>
+        <input 
+        type="text" 
+        class="form-control" 
+        id="expiry_date" 
+        name="expiry_date" 
+        placeholder="Enter Expiry date"
+        maxlength="5">
+    </div>
+    <div class="form-group">
+        <label for="cvv">CVV:</label>
+        <input 
+        type="text" 
+        class="form-control" 
+        id="cvv" 
+        name="cvv" 
+        placeholder="Enter CVV"
+        maxlength="3">
     </div>
     <br>
     <button type="submit" class="btn btn-primary custom-size-btn">Register</button>
+    <p>You Already have an account? <a href="/login">Login</a></p>
 </form>
+<script src="static/mm-yy_format.js"></script>
 {%endblock%}

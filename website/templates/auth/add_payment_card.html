@@ -1,0 +1,44 @@
+{%extends "base.html"%}
+{%block title%}Add/Change Payment Card{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="static/dark-mode.css">
+<link rel="stylesheet" href="static/login_register.css">
+{%endblock%}
+{%block content%}
+<form method="POST">
+    <h3 align="center">Add/Change Payment Card</h3>
+    <div class="form-group">
+        <label for="card_number">Card number:</label>
+        <input 
+        type="text" 
+        class="form-control" 
+        id="card_number" 
+        name="card_number" 
+        placeholder="Enter Card Number"
+        maxlength="10">
+    </div>
+    <div class="form-group">
+        <label for="expiry_date">Expiry date (MM/YY):</label>
+        <input 
+        type="text" 
+        class="form-control" 
+        id="expiry_date" 
+        name="expiry_date" 
+        placeholder="Enter Expiry date"
+        maxlength="5">
+    </div>
+    <div class="form-group">
+        <label for="cvv">CVV:</label>
+        <input 
+        type="text" 
+        class="form-control" 
+        id="cvv" 
+        name="cvv" 
+        placeholder="Enter CVV"
+        maxlength="3">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-success custom-size-btn">Add Payment Card</button>
+</form>
+<script src="static/mm-yy_format.js"></script>
+{%endblock%}

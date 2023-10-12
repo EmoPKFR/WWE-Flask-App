@@ -6,6 +6,6 @@
   .custom-size-btn {
     display: block;
     margin: 0 auto;
-    width: 180px; /* Adjust this value to set the desired width for your buttons */
+    width: 185px; /* Adjust this value to set the desired width for your buttons */
     height: 40px; /* Adjust this value to set the desired height for your buttons */
   }

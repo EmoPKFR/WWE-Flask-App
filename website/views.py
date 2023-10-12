@@ -1,11 +1,12 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
+from .models import Order
+from . import db
 
 views = Blueprint("views", __name__)
 
 @views.route("/")
 @views.route("/home")
-@login_required
 def home():
     return render_template("home.html", user=current_user)
 
@@ -50,7 +51,7 @@ def title_info():
         img = request.form.get("img")
         product_title = request.form.get("product_title")
         product_price = request.form.get("product_price")
-        product_size = request.form.get("product_size")
+        # product_size = request.form.get("product_size")
         quantity = int(request.form.get('quantity_input'))
 
         price = int(''.join(filter(str.isdigit, product_price)))
@@ -64,7 +65,7 @@ def title_info():
                 'product_price': price,
                 'total_price': price * quantity,
                 'quantity': quantity,
-                'product_size': product_size, 
+                # 'product_size': product_size,
                 'img': img
                 }
         return redirect(url_for("views.basket"))
@@ -86,7 +87,7 @@ def toy_info():
         img = request.form.get("img")
         product_title = request.form.get("product_title")
         product_price = request.form.get("product_price")
-        product_size = request.form.get("product_size")
+        # product_size = request.form.get("product_size")
         quantity = int(request.form.get('quantity_input'))
 
         price = int(''.join(filter(str.isdigit, product_price)))
@@ -100,7 +101,7 @@ def toy_info():
                 'product_price': price,
                 'total_price': price * quantity,
                 'quantity': quantity,
-                'product_size': product_size, 
+                # 'product_size': product_size, 
                 'img': img
                 }
         return redirect(url_for("views.basket"))
@@ -121,7 +122,7 @@ def product_info():
         img = request.form.get("img")
         product_title = request.form.get("product_title")
         product_price = request.form.get("product_price")
-        product_size = request.form.get("product_size")
+        # product_size = request.form.get("product_size")
         quantity = int(request.form.get('quantity_input'))
 
         price = int(''.join(filter(str.isdigit, product_price)))
@@ -129,13 +130,13 @@ def product_info():
         # Update the shopping cart with the selected product
         if product_title in shopping_cart:
             shopping_cart[product_title]['total_price'] += price * quantity
-            shopping_cart[product_title]['product_size'] = product_size
+            # shopping_cart[product_title]['product_size'] = product_size
             shopping_cart[product_title]['quantity'] += quantity
         else:
             shopping_cart[product_title] = {
                 'product_price': price,
                 'total_price': price * quantity,
-                'product_size': product_size, 
+                # 'product_size': product_size, 
                 'quantity': quantity,
                 'img': img
                 }
@@ -147,12 +148,31 @@ def product_info():
     
     return render_template("shop_info/product_info.html", user=current_user, img=img, product_name=product_name, price=price)
 
-@views.route("/basket")
+@views.route("/basket", methods=["GET", "POST"])
 @login_required
 def basket():
+    if request.method == "POST":
+        shipping_address = request.form.get('shipping_address')
+        if len(shipping_address) < 20:
+            flash("Shipping address must have 20 or more symbols", category="error")
+        else:
+            product_title = request.form.get('product_title')
+            # price = request.form.get('price')
+            # quantity = request.form.get('quantity')
+            
+            new_order = Order(name="Emo", price=2, shipping_address=shipping_address)
+            db.session.add(new_order)
+            db.session.commit()
+            
+            flash("You successfully buyed your order", category="success")
+            return redirect(url_for("views.home"))
+    
     total_amount = 0
+    
     for product_title, details in shopping_cart.items():
         total_amount += details['total_price']
+        first_key, first_value = list(shopping_cart.items())[0]
+        
     return render_template("shop_info/basket.html", user=current_user, shopping_cart=shopping_cart, total_amount=total_amount)
 
 @views.route('/remove_product', methods=['POST'])
@@ -165,6 +185,3 @@ def remove_product():
 
     return redirect(url_for('views.basket'))
 
-
-
-#Trying to solve one problem :)

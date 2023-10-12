@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Database{% endblock %}
+{% block custom_css %}
+<link rel="stylesheet" href="static/dark-mode.css">
+<link rel="stylesheet" href="static/login_register.css">
+{% endblock %}
+{% block content %}
+<h3 align="center">Database</h3>
+<h4>Users</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Card Number</th>
+            <th>Expiry Date</th>
+            <th>CVV</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.card_number }}</td>
+                <td>{{ user.expiry_date }}</td>
+                <td>{{ user.cvv }}</td>
+                <td>{{ user.created_at }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h4>Orders</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Shipping Address</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.name }}</td>
+                <td>{{ order.price }}</td>
+                <td>{{ order.shipping_address }}</td>
+                <td>{{ order.created_at }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

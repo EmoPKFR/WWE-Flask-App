@@ -13,6 +13,12 @@
   }
   
   /* Dark Mode Toggle Styles */
+  tr {
+	background-color: #111;
+	color: #fff;
+  }
+
+
   .switch {
 	position: relative;
 	display: inline-block;

@@ -7,3 +7,12 @@
     border-radius: 5px; /* Add rounded corners */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
 }
+
+.remove-button {
+    background-color: red; /* Change this color as needed */
+    color: white;
+    border: none;
+    padding: 6px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
