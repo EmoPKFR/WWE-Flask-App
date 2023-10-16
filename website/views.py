@@ -18,10 +18,6 @@ def all_superstars():
 def champions():
     return render_template("superstars_info/champions.html", user=current_user)
 
-@views.route("/shows")
-def shows():
-    return render_template("shows.html", user=current_user)
-
 @views.route("/shop")
 def shop():
     return render_template("shop_info/shop.html", user=current_user)
@@ -31,18 +27,10 @@ def shop():
 def t_shirts():
     return render_template("shop_info/t_shirts.html", user=current_user)
 
-# @views.route("/titles_old", methods=["GET", "POST"])
-# def titles_old():
-#     if request.method == "POST":
-#         return redirect(url_for("views.titles_info", title_picture="WWE_World_Heavyweight_Championship_title.png"))
-    
-    
-#     return render_template("shop_info/titles_old.html", user=current_user)
 
 @views.route("/titles")
 def titles():
     return render_template("shop_info/titles.html", user=current_user)
-
 
 @views.route("/title_info", methods=["GET", "POST"])
 def title_info():

@@ -1,0 +1,84 @@
+{%extends "base.html"%}
+
+{%block title%}Shop{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="static/dark-mode.css">
+<link rel="stylesheet" href="static/shows.css">
+{%endblock%}
+{%block content%}
+    <h2>WWE Historical Pay-Per-Views</h2>
+    <div class="image-container">
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/SuperShowDown.png') }}" alt="Image 3">
+            <p>Armageddon</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/CapitolPunishment.png') }}" alt="Image 3">
+            <p>Capitol Punishment</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/JudgementDay.png') }}" alt="Image 1">
+            <p>Judgement Day</p>
+        </div>
+    </div>
+    <div class="image-container">
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/NewYearsRevolution.png') }}" alt="Image 3">
+            <p>New Years Revolution</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/Vengeance.png') }}" alt="Image 3">
+            <p>Vengeance</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/BraggingRights.png') }}" alt="Image 1">
+            <p>Bragging Rights</p>
+        </div>
+    </div>
+    <div class="image-container">
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/BreakingPoint.png') }}" alt="Image 3">
+            <p>Breaking Point</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/CyberSunday.png') }}" alt="Image 3">
+            <p>Cyber Sunday</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/FatalFourWay.png') }}" alt="Image 1">
+            <p>Fatal 4-Way</p>
+        </div>
+    </div>
+    <div class="image-container">
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/NoWayOut.png') }}" alt="Image 3">
+            <p>No Way Out</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/TheBash.png') }}" alt="Image 3">
+            <p>The Bash</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/Unforgiven.png') }}" alt="Image 1">
+            <p>Unforgiven</p>
+        </div>
+    </div>
+    <div class="image-container">
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/OverTheLimit.png') }}" alt="Image 3">
+            <p>Over The Limit</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/OneNightStand.png') }}" alt="Image 3">
+            <p>One Night Stand</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/BackLash_2.png') }}" alt="Image 1">
+            <p>BackLash</p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <a href="/shows" class="button-link">1</a>
+{%endblock%}

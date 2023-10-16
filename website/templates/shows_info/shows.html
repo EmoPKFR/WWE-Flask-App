@@ -1,0 +1,93 @@
+{%extends "base.html"%}
+
+{%block title%}Shop{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="static/dark-mode.css">
+<link rel="stylesheet" href="static/shows.css">
+{%endblock%}
+{%block content%}
+    <h2>WWE Premier Shows</h2>
+    <div class="image-container">
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/raw.png') }}" alt="Image 3">
+            <p>RAW</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/smackdown.png') }}" alt="Image 3">
+            <p>SmackDown</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/nxt.png') }}" alt="Image 1">
+            <p>NXT</p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <h2>WWE Premium Live Events</h2>
+    <div class="image-container">
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/Royal_Rumble.png') }}" alt="Image 3">
+            <p>Royal Rumble</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/WrestleMania.png') }}" alt="Image 3">
+            <p>WrestleMania</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/Survivor_Series.png') }}" alt="Image 1">
+            <p>Survivor Series</p>
+        </div>
+    </div>
+    <div class="image-container">
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/EliminationChamber.png') }}" alt="Image 3">
+            <p>Elimination Chamber</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/BackLash.png') }}" alt="Image 3">
+            <p>BackLash</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/Night_of_Champions.png') }}" alt="Image 1">
+            <p>Night of Champions</p>
+        </div>
+    </div>
+    <div class="image-container">
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/MITB.png') }}" alt="Image 3">
+            <p>Money in the Bank</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/Extreme_Rules.png') }}" alt="Image 3">
+            <p>Extreme Rules</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/CrownJewel.png') }}" alt="Image 1">
+            <p>Crown Jewel</p>
+        </div>
+    </div>
+    <div class="image-container">
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/SuperShowDown.png') }}" alt="Image 3">
+            <p>Super ShowDown</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/HellInACell.png') }}" alt="Image 3">
+            <p>Hell in a Cell</p>
+        </div>
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/Clash_Of_Champions.png') }}" alt="Image 1">
+            <p>Clash of Champions</p>
+        </div>
+    </div>
+    <div class="image-container">
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='images/shows_images/TLC.png') }}" alt="Image 3">
+            <p>TLC</p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <a href="/shows2" class="button-link">2</a>
+{%endblock%}

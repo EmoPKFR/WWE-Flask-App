@@ -1,26 +1,48 @@
-/* Style for the image containers */
 .image-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: auto;
+  }
+  
+  .image-container:nth-child(2) {
+    justify-content: flex-start; /* Align the single image to the left in the second row */
+  }
+  
+  .image-item {
+    flex: 1;
+    max-width: calc(33.333% - 50px); /* Adjust the width and margin as needed */
+    margin: 25px;
+    box-sizing: border-box;
     text-align: center;
-    width: 33.33%; /* Adjust the width as needed for equal spacing */
-    float: left;
-    margin-bottom: 20px; /* Add spacing between image containers */
-}
-
-/* Style for the images */
-.image-container img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Style for the text below the images */
-.image-text {
+  }
+  
+  .image-item img {
+    width: 100%; /* Force all images to have the same width */
+    height: 200px; /* Set a fixed height for all images, adjust as needed */
+    object-fit: contain;
+  }
+  
+  .image-item p {
+    margin-top: 10px;
+  }
+  
+  h2 {
     text-align: center;
-    margin-top: 10px; /* Add spacing between the image and text */
-}
+  }
 
-/* Clear the float to prevent layout issues */
-.clearfix::after {
-    content: "";
-    display: table;
-    clear: both;
-}
+  /* This is for the link for second page */
+  .button-link {
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #007BFF; /* Change to your desired button background color */
+    color: #fff; /* Text color */
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: wait;
+    transition: background-color 0.9s ease;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
