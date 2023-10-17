@@ -1,0 +1,18 @@
+body {
+    background-image: url("images/logo_images/wwe_background.jpg");
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0; /* Remove default margin to ensure full image visibility */
+  }
+  
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }

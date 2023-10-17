@@ -6,19 +6,21 @@
 <link rel="stylesheet" href="static/shop.css">
 {%endblock%}
 {%block content%}
+    <h2>Shop</h2>
     <div class="image-container">
-        <a href="{{ url_for('views.t_shirts') }}"><img src="{{ url_for('static', filename='images/shop_images/t-shirts_logo.jpg') }}" alt="T-Shirts"></a>
-        <a href="{{ url_for('views.t_shirts') }}"><p class="image-text">T-Shirts</p></a>
+        <div class="image-item">
+            <a href="{{ url_for('views.t_shirts') }}"><img src="{{ url_for('static', filename='images/t-shirts/t-shirt9.jpg') }}" alt="T-Shirts"></a>
+            <a href="{{ url_for('views.t_shirts') }}"><p class="image-text">T-Shirts</p></a>
+        </div>
+        
+        <div class="image-item">
+            <a href="{{ url_for('views.titles') }}"><img src="{{ url_for('static', filename='images/shop_images/WWE_World_Heavyweight_Championship_title.png') }}" alt="WWE Titles"></a>
+            <a href="{{ url_for('views.titles') }}"><p class="image-text">WWE Titles</p></a>
+        </div>
+
+        <div class="image-item">
+            <a href="{{ url_for('views.toys') }}"><img src="{{ url_for('static', filename='images/toys_images/John_Cena_Toy.jpg') }}" alt="Toys"></a>
+            <a href="{{ url_for('views.toys') }}"><p class="image-text">Toys</p></a>
+        </div>
     </div>
-    
-    <div class="image-container">
-        <a href="{{ url_for('views.titles') }}"><img src="{{ url_for('static', filename='images/shop_images/title_logo.jpg') }}" alt="WWE Titles"></a>
-        <a href="{{ url_for('views.titles') }}"><p class="image-text">WWE Titles</p></a>
-    </div>
-    
-    <div class="image-container">
-        <a href="{{ url_for('views.toys') }}"><img src="{{ url_for('static', filename='images/shop_images/toys_logo.jpg') }}" alt="Toys"></a>
-        <a href="{{ url_for('views.toys') }}"><p class="image-text">Toys</p></a>
-    </div>
-    <div class="clearfix"></div> <!-- Clear the float to prevent layout issues -->
 {%endblock%}
