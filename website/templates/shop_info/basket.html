@@ -9,7 +9,7 @@
     <br>
     <h1>Your Basket</h1>
     <ul>
-        {% for product_title, details in shopping_cart.items() %}
+        {% for product_title, details in cart.items() %}
         <li>
             <img src="{{ details['img'] }}" alt="Product Image" class="product-image"><br>
             Product Title: {{ product_title }}<br>
@@ -38,9 +38,6 @@
     </form>
     {%else%}
         <a href="/shop">Add Product/Products</a>
-        
-        
     {%endif%}
-    
 </div>
 {%endblock%}

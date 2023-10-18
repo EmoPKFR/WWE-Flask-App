@@ -1,3 +1,4 @@
+import json
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from .models import Order
@@ -45,11 +46,11 @@ def title_info():
         price = int(''.join(filter(str.isdigit, product_price)))
 
         # Update the shopping cart with the selected product
-        if product_title in shopping_cart:
-            shopping_cart[product_title]['total_price'] += price * quantity
-            shopping_cart[product_title]['quantity'] += quantity
+        if product_title in cart:
+            cart[product_title]['total_price'] += price * quantity
+            cart[product_title]['quantity'] += quantity
         else:
-            shopping_cart[product_title] = {
+            cart[product_title] = {
                 'product_price': price,
                 'total_price': price * quantity,
                 'quantity': quantity,
@@ -81,11 +82,11 @@ def toy_info():
         price = int(''.join(filter(str.isdigit, product_price)))
 
         # Update the shopping cart with the selected product
-        if product_title in shopping_cart:
-            shopping_cart[product_title]['total_price'] += price * quantity
-            shopping_cart[product_title]['quantity'] += quantity
+        if product_title in cart:
+            cart[product_title]['total_price'] += price * quantity
+            cart[product_title]['quantity'] += quantity
         else:
-            shopping_cart[product_title] = {
+            cart[product_title] = {
                 'product_price': price,
                 'total_price': price * quantity,
                 'quantity': quantity,
@@ -101,7 +102,7 @@ def toy_info():
     return render_template("shop_info/toy_info.html", user=current_user, img=img, product_name=product_name, price=price)
 
 # Initialize an empty shopping cart (a dictionary)
-shopping_cart = {}
+cart = {}
 
 @views.route("/product_info", methods=["GET", "POST"])
 def product_info():
@@ -116,12 +117,12 @@ def product_info():
         price = int(''.join(filter(str.isdigit, product_price)))
 
         # Update the shopping cart with the selected product
-        if product_title in shopping_cart:
-            shopping_cart[product_title]['total_price'] += price * quantity
-            # shopping_cart[product_title]['product_size'] = product_size
-            shopping_cart[product_title]['quantity'] += quantity
+        if product_title in cart:
+            cart[product_title]['total_price'] += price * quantity
+            # cart[product_title]['product_size'] = product_size
+            cart[product_title]['quantity'] += quantity
         else:
-            shopping_cart[product_title] = {
+            cart[product_title] = {
                 'product_price': price,
                 'total_price': price * quantity,
                 # 'product_size': product_size, 
@@ -139,37 +140,53 @@ def product_info():
 @views.route("/basket", methods=["GET", "POST"])
 @login_required
 def basket():
+    total_amount = 0
+    all_products = {}  # Initialize an empty dictionary
+    total_product_price = 0  # Initialize a variable to track the total product price
+
     if request.method == "POST":
         shipping_address = request.form.get('shipping_address')
         if len(shipping_address) < 20:
             flash("Shipping address must have 20 or more symbols", category="error")
         else:
             product_title = request.form.get('product_title')
-            # price = request.form.get('price')
-            # quantity = request.form.get('quantity')
             
-            new_order = Order(name="Emo", price=2, shipping_address=shipping_address)
+            # Populate the all_products dictionary from the cart
+            for product_title, data in cart.items():
+                all_products[product_title] = data
+
+            # Convert the dictionary to a JSON string
+            all_products_str = json.dumps(all_products)
+            
+            # Populate the product_titles list from the cart
+            product_titles = list(cart.keys())
+            
+            # Convert the list of product titles to a JSON string
+            product_titles_str = json.dumps(product_titles)
+            
+            # Calculate the total product price
+            for product_title, data in all_products.items():
+                total_product_price += data['product_price'] * data['quantity']
+
+            
+            new_order = Order(name=product_titles_str , price=total_product_price, shipping_address=shipping_address)
             db.session.add(new_order)
             db.session.commit()
             
-            flash("You successfully buyed your order", category="success")
             return redirect(url_for("views.home"))
     
-    total_amount = 0
-    
-    for product_title, details in shopping_cart.items():
+    for product_title, details in cart.items():
         total_amount += details['total_price']
-        first_key, first_value = list(shopping_cart.items())[0]
         
-    return render_template("shop_info/basket.html", user=current_user, shopping_cart=shopping_cart, total_amount=total_amount)
+    return render_template("shop_info/basket.html", user=current_user, cart=cart, total_amount=total_amount)
 
 @views.route('/remove_product', methods=['POST'])
 def remove_product():
     if request.method == 'POST':
         product_title_to_remove = request.form.get('product_title')
 
-        if product_title_to_remove in shopping_cart:
-            del shopping_cart[product_title_to_remove]
+        if product_title_to_remove in cart:
+            del cart[product_title_to_remove]
 
     return redirect(url_for('views.basket'))
 

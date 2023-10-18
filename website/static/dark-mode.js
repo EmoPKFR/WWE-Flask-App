@@ -8,6 +8,16 @@ function toggleDarkMode() {
 	} else {
 	  document.body.classList.remove('dark-mode');
 	}
+
+	// Check if this is the home page
+	if (document.body.getAttribute('home-page') === 'home') {
+		// Change the background image when dark mode is enabled or disabled
+		if (darkModeEnabled) {
+		  document.body.style.backgroundImage = 'url("static/images/logo_images/wwe_background.jpg")';
+		} else {
+		  document.body.style.backgroundImage = 'url("static/images/logo_images/home_light_mode.jpg")';
+		}
+	  }
   
 	// Toggle text color for <p>, <h>, and <div> elements
 	const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, div');
