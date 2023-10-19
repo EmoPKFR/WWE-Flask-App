@@ -26,6 +26,7 @@
         {% endfor %}
     </ul>
     <h2>Total Price: {{ total_amount }}€</h2>
+    <a href="/shop">Add Product/Products</a>
     {%if total_amount > 0%}
     <form method="POST">
         <div class="form-group">
@@ -36,8 +37,6 @@
 
         <button type="submit" class="btn btn-success custom-size-btn">Buy</button>
     </form>
-    {%else%}
-        <a href="/shop">Add Product/Products</a>
     {%endif%}
 </div>
 {%endblock%}

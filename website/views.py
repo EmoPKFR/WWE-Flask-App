@@ -144,12 +144,26 @@ def basket():
     all_products = {}  # Initialize an empty dictionary
     total_product_price = 0  # Initialize a variable to track the total product price
 
+    if not (current_user.card_number and current_user.expiry_date and current_user.cvv):
+        flash("Please Add Payment Card before making a purchase.", category="error")
+        return redirect(url_for("auth.profile_page"))  # Redirect to the profile page to update payment info
+
     if request.method == "POST":
         shipping_address = request.form.get('shipping_address')
-        if len(shipping_address) < 20:
-            flash("Shipping address must have 20 or more symbols", category="error")
+        if len(shipping_address) < 3:
+            flash("Shipping address must have 3 or more symbols", category="error")
         else:
             product_title = request.form.get('product_title')
+            
+            product_titles = []  # Initialize a list to store formatted product details
+
+            for product_title, details in cart.items():
+                # Format the product details
+                product_detail = f"{product_title}, price={details['product_price']}, quantity={details['quantity']}"
+                product_titles.append(product_detail)
+                
+            # Convert the list of formatted product details to a JSON string
+            products_str = json.dumps(product_titles)
             
             # Populate the all_products dictionary from the cart
             for product_title, data in cart.items():
@@ -161,18 +175,17 @@ def basket():
             # Populate the product_titles list from the cart
             product_titles = list(cart.keys())
             
-            # Convert the list of product titles to a JSON string
-            product_titles_str = json.dumps(product_titles)
             
             # Calculate the total product price
             for product_title, data in all_products.items():
                 total_product_price += data['product_price'] * data['quantity']
 
             
-            new_order = Order(name=product_titles_str , price=total_product_price, shipping_address=shipping_address)
+            new_order = Order(products=products_str , total_price=total_product_price, shipping_address=shipping_address,
+                              email=current_user.email, username=current_user.username)
             db.session.add(new_order)
             db.session.commit()
-            
+            flash("Order is successfully purchased!", category="success")
             return redirect(url_for("views.home"))
     
     for product_title, details in cart.items():

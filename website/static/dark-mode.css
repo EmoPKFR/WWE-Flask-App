@@ -76,3 +76,8 @@
 	background-color: #111;
   }
   
+  .flash {
+	margin-top: 0px;
+    z-index: 102; /* A higher z-index than your background image (e.g., 102) */
+    position: relative;
+}

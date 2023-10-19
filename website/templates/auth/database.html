@@ -41,8 +41,8 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
+            <th>Products</th>
+            <th>Total Price</th>
             <th>Shipping Address</th>
             <th>Created At</th>
         </tr>
@@ -51,8 +51,8 @@
         {% for order in orders %}
             <tr>
                 <td>{{ order.id }}</td>
-                <td>{{ order.name }}</td>
-                <td>{{ order.price }}</td>
+                <td>{{ order.products }}</td>
+                <td>{{ order.total_price }}</td>
                 <td>{{ order.shipping_address }}</td>
                 <td>{{ order.created_at }}</td>
             </tr>

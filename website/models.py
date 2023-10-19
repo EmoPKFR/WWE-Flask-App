@@ -21,12 +21,13 @@ class User(db.Model, UserMixin):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    price = db.Column(db.Float)
+    products = db.Column(db.String(50))
+    total_price = db.Column(db.Float)
     shipping_address = db.Column(db.String(1000))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    username = db.Column(db.String(20))
+    email = db.Column(db.String(20))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id", name="fk_order_user_id"))
-
     # Define a relationship to the User model
     user = relationship("User", back_populates="orders")
     

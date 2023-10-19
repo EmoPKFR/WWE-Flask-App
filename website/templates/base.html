@@ -101,7 +101,8 @@
         {%endif%}
       </div>
     </nav>
-    {%with messages = get_flashed_messages(with_categories=true)%}
+    <div class="flash">
+      {%with messages = get_flashed_messages(with_categories=true)%}
     {%if messages%}
         {%for category, message in messages%}
         {%if category == "error"%}
@@ -122,6 +123,8 @@
         {%endfor%}
     {%endif%}
     {%endwith%}
+    </div>
+    
 
     {% block content %}{% endblock %}
     <script

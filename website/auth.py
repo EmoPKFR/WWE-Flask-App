@@ -117,7 +117,7 @@ def change_password():
             current_user.password=generate_password_hash(new_password1, method="sha256")
             db.session.commit()
             flash("Password changed successfully!", category="success")
-            return redirect(url_for("views.shop"))
+            return redirect(url_for("shows.shows_page"))
 
     return render_template("auth/change_password.html", user=current_user)
 
@@ -137,7 +137,7 @@ def delete_account():
             db.session.commit()
             flash("Account deleted successfully!", category="success")
             logout_user()
-            return redirect(url_for("auth.login"))
+            return redirect(url_for("auth.register"))
 
     return render_template("auth/delete_account.html", user=current_user)
 
