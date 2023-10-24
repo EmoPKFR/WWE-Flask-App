@@ -12,8 +12,11 @@ mail = Mail()  # Create 'mail' object at the module level
 
 def create_app():
     app = Flask(__name__)
-    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.environ.get('DB_NAME')}"
+    from dotenv import load_dotenv
+
+    load_dotenv()
+    app.config['SECRET_KEY'] =  os.environ.get("SECRET_KEY")
+    app.config['SQLALCHEMY_DATABASE_URI'] =  os.environ.get("SQLALCHEMY_DATABASE_URI")
     app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
     migrate = Migrate(app, db)
     db.init_app(app)
@@ -21,7 +24,7 @@ def create_app():
     # Email configuration
     app.config['MAIL_SERVER'] =  os.environ.get("MAIL_SERVER")
     app.config['MAIL_PORT'] =  os.environ.get("MAIL_PORT")
-    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USE_TLS'] = os.environ.get("MAIL_USE_TLS")
     app.config['MAIL_USERNAME'] =  os.environ.get("MAIL_USERNAME")
     app.config['MAIL_PASSWORD'] =  os.environ.get("MAIL_PASSWORD")
 
