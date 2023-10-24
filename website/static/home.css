@@ -17,3 +17,8 @@ body {
     z-index: 100;
   }
 
+  .flash {
+    margin-top: 60px;
+      z-index: 102; /* A higher z-index than your background image (e.g., 102) */
+      position: relative;
+  }

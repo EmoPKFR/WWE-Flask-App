@@ -1,8 +1,10 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from .models import User, Order
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import db ##means from __init__.py import db
+from . import db # This means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
+from flask_mail import Message
+from . import create_app, mail  # Import the create_app function
 
 auth = Blueprint("auth", __name__)
 
@@ -68,8 +70,11 @@ def register():
             elif not cvv.isdigit() or len(cvv) != 3:
                 flash("CVV must be exact 3 digits.", category="error")
             else:
-                new_user = User(email=email, username=username, password=generate_password_hash(password1, method="sha256"), 
-                                card_number=card_number, expiry_date=expiry_date,cvv=cvv)
+                new_user = User(email=email, username=username, 
+                                password=generate_password_hash(password1, method="sha256"), 
+                                card_number=generate_password_hash(card_number, method="sha256"),
+                                expiry_date=expiry_date,
+                                cvv=generate_password_hash(cvv, method="sha256"))
                 db.session.add(new_user)
                 db.session.commit()
                 login_user(new_user, remember=True) 
@@ -96,6 +101,7 @@ def profile_page():
     return render_template("auth/profile_page.html", user=current_user, user_has_payment_card=user_has_payment_card)
 
 @auth.route("/change_password", methods=["GET", "POST"])
+@login_required
 def change_password():
     if request.method == "POST":
         email = request.form.get("email")
@@ -114,14 +120,52 @@ def change_password():
         elif new_password1 != new_password2:
             flash("Passwords must match.", category="error")
         else:
-            current_user.password=generate_password_hash(new_password1, method="sha256")
-            db.session.commit()
-            flash("Password changed successfully!", category="success")
-            return redirect(url_for("shows.shows_page"))
+            session["new_password"] = new_password1
+            return redirect(url_for("auth.send_email_change_password"))
 
     return render_template("auth/change_password.html", user=current_user)
 
+@auth.route("/confirm_password", methods=["GET"])
+def confirm_password():
+    new_password = session.get("new_password")
+    current_user.password=generate_password_hash(new_password, method="sha256")
+    db.session.commit()
+    flash("Password changed successfully", category="success")
+    return render_template("home.html", user=current_user)
+    
+
+@auth.route("/send_email_change_password", methods=["GET"])
+def send_email_change_password():
+    # Create the email message
+    msg_title = "Change Password"
+    sender = "noreply@app.com"
+    msg = Message(msg_title, sender=sender, recipients=[current_user.email])
+    msg_body = ""
+    msg.body = ""
+    
+    new_password = session.get("new_password")
+    
+    # new_password = request.form.get("new_password")  # Retrieve the new password from the form
+    data = {
+        'app_name': "WWE Flask App",
+        'title': msg_title,
+        'body': msg_body,  # Pass the new_password to the email template
+        'new_password': new_password
+    }
+
+    msg.html = render_template("auth/email.html", data=data)
+
+    try:
+        mail.send(msg)  # Use the 'mail' object directly
+        flash("Check your Email to change password", category="success")
+    except Exception as e:
+        print(e)
+        flash(f"The email was not sent: {e}", category="error")
+
+    return redirect(url_for("auth.profile_page"))
+
 @auth.route("/delete_account", methods=["GET", "POST"])
+@login_required
 def delete_account():
     if request.method == "POST":
         email = request.form.get("email")
@@ -163,16 +207,16 @@ def add_payment_card():
                 (current_user.cvv == int(cvv) and current_user.expiry_date != expiry_date)):
                 flash("You cannot change your card with the same card or you have incorrect values", category="error")
             else:
-                current_user.card_number = card_number
+                current_user.card_number = generate_password_hash(card_number, method="sha256")
                 current_user.expiry_date = expiry_date
-                current_user.cvv = cvv
+                current_user.cvv = generate_password_hash(cvv, method="sha256")
                 db.session.commit()
                 flash("Payment card changed successfully!", category="success")
                 return redirect(url_for("views.home"))
         else:
-            current_user.card_number = card_number
+            current_user.card_number = generate_password_hash(card_number, method="sha256")
             current_user.expiry_date = expiry_date
-            current_user.cvv = cvv
+            current_user.cvv = generate_password_hash(cvv, method="sha256")
             db.session.commit()
             flash("Payment card added successfully!", category="success")
             return redirect(url_for("views.home"))
@@ -209,6 +253,22 @@ def database():
     print(orders)  # Debug statement
     
     return render_template("auth/database.html", user=current_user, users=users, orders=orders)
+
+@auth.route("/forgot_password", methods=["GET", "POST"])
+def forgot_password():
+    if request.method == "POST":
+        password1 = request.form.get("password1")
+        password2 = request.form.get("password2")
+        
+        if password1 != password2:
+            flash("Passwords don't match.", category="error")
+        elif len(password1) < 3:
+            flash("Password must be at least 3 characters.", category="error")
+        else:
+            flash("Password changed successfully!", category="success")
+            return redirect(url_for("auth.send_email_change_password"))
+        
+    return render_template("auth/forgot_password.html", user=current_user)
 
 @auth.route('/<path:path>')
 def catch_all(path):

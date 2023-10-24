@@ -140,13 +140,13 @@ def product_info():
 @views.route("/basket", methods=["GET", "POST"])
 @login_required
 def basket():
+    if not (current_user.card_number and current_user.expiry_date and current_user.cvv):
+        flash("Please Add Payment Card before making a purchase.", category="warning")
+        return redirect(url_for("auth.profile_page"))  # Redirect to the profile page to update payment info
+    
     total_amount = 0
     all_products = {}  # Initialize an empty dictionary
     total_product_price = 0  # Initialize a variable to track the total product price
-
-    if not (current_user.card_number and current_user.expiry_date and current_user.cvv):
-        flash("Please Add Payment Card before making a purchase.", category="error")
-        return redirect(url_for("auth.profile_page"))  # Redirect to the profile page to update payment info
 
     if request.method == "POST":
         shipping_address = request.form.get('shipping_address')
