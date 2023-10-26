@@ -59,11 +59,15 @@ def register():
             flash("Password must be at least 3 characters.", category="error")
         elif not card_number and not expiry_date and not cvv:
             new_user = User(email=email, username=username, password=generate_password_hash(password1, method="sha256"))
-            db.session.add(new_user)
-            db.session.commit()
-            login_user(new_user, remember=True) 
-            flash("Account created!", category="success")
-            return redirect(url_for("views.home"))
+            session["email"] = email
+            session["username"] = username
+            session["password"] = generate_password_hash(password1, method="sha256")
+            return redirect(url_for("emails.send_email_register"))
+            # db.session.add(new_user)
+            # db.session.commit()
+            # login_user(new_user, remember=True) 
+            # flash("Account created!", category="success")
+            # return redirect(url_for("views.home"))
         elif card_number and expiry_date and cvv:
             if not card_number.isdigit() or len(card_number) != 10:
                 flash("Card number must be exact 10 digits.", category="error")
@@ -75,11 +79,18 @@ def register():
                                 card_number=generate_password_hash(card_number, method="sha256"),
                                 expiry_date=expiry_date,
                                 cvv=generate_password_hash(cvv, method="sha256"))
-                db.session.add(new_user)
-                db.session.commit()
-                login_user(new_user, remember=True) 
-                flash("Account created!", category="success")
-                return redirect(url_for("views.home"))
+                session["email"] = email
+                session["username"] = username
+                session["password"] = generate_password_hash(password1, method="sha256")
+                session["card_number"] = generate_password_hash(card_number, method="sha256")
+                session["expiry_date"] = expiry_date
+                session["cvv"] = generate_password_hash(cvv, method="sha256")
+                return redirect(url_for("emails.send_email_register"))
+                # db.session.add(new_user)
+                # db.session.commit()
+                # login_user(new_user, remember=True) 
+                # flash("Account created!", category="success")
+                # return redirect(url_for("views.home"))
         else:
             flash("You have to fill Card Number, Expiry Month, Expiry Year and CVV or leave them Null.", category="error")
         
@@ -121,48 +132,31 @@ def change_password():
             flash("Passwords must match.", category="error")
         else:
             session["new_password"] = new_password1
-            return redirect(url_for("auth.send_email_change_password"))
+            return redirect(url_for("emails.send_email_change_password"))
 
     return render_template("auth/change_password.html", user=current_user)
 
-@auth.route("/confirm_password", methods=["GET"])
-def confirm_password():
-    new_password = session.get("new_password")
-    current_user.password=generate_password_hash(new_password, method="sha256")
-    db.session.commit()
-    flash("Password changed successfully", category="success")
-    return render_template("home.html", user=current_user)
-    
-
-@auth.route("/send_email_change_password", methods=["GET"])
-def send_email_change_password():
-    # Create the email message
-    msg_title = "Change Password"
-    sender = "noreply@app.com"
-    msg = Message(msg_title, sender=sender, recipients=[current_user.email])
-    msg_body = ""
-    msg.body = ""
-    
-    new_password = session.get("new_password")
-    
-    # new_password = request.form.get("new_password")  # Retrieve the new password from the form
-    data = {
-        'app_name': "WWE Flask App",
-        'title': msg_title,
-        'body': msg_body,  # Pass the new_password to the email template
-        'new_password': new_password
-    }
-
-    msg.html = render_template("auth/email.html", data=data)
-
-    try:
-        mail.send(msg)  # Use the 'mail' object directly
-        flash("Check your Email to change password", category="success")
-    except Exception as e:
-        print(e)
-        flash(f"The email was not sent: {e}", category="error")
-
-    return redirect(url_for("auth.profile_page"))
+@auth.route("/forgot_password", methods=["GET", "POST"])
+def forgot_password():
+    if request.method == "POST":
+        email = request.form.get("email")
+        new_password1 = request.form.get("password1")
+        new_password2 = request.form.get("password2")
+        
+        user = User.query.filter_by(email=email).first()
+        
+        if new_password1 != new_password2:
+            flash("Passwords don't match.", category="error")
+        elif len(new_password1) < 3:
+            flash("Password must be at least 3 characters.", category="error")
+        elif user and check_password_hash(user.password, new_password1):
+            flash("New password must be different than old password.", category="error")
+        else:
+            session["user_id"] = user.id
+            session["new_password"] = new_password1
+            return redirect(url_for("emails.send_email_reset_password"))
+        
+    return render_template("auth/forgot_password.html", user=current_user)
 
 @auth.route("/delete_account", methods=["GET", "POST"])
 @login_required
@@ -176,16 +170,13 @@ def delete_account():
         elif not check_password_hash(current_user.password, password):
                 flash("Wrong password or password.", category="error")
         else:
-            user = User.query.filter_by(email=email).first()
-            db.session.delete(user)
-            db.session.commit()
-            flash("Account deleted successfully!", category="success")
-            logout_user()
-            return redirect(url_for("auth.register"))
+            session["email"] = email
+            return redirect(url_for("emails.send_email_delete_account"))
 
     return render_template("auth/delete_account.html", user=current_user)
 
 @auth.route("/add_payment_card", methods=["GET", "POST"])
+@login_required
 def add_payment_card():
     if request.method == "POST":
         card_number = request.form.get("card_number")
@@ -254,21 +245,7 @@ def database():
     
     return render_template("auth/database.html", user=current_user, users=users, orders=orders)
 
-@auth.route("/forgot_password", methods=["GET", "POST"])
-def forgot_password():
-    if request.method == "POST":
-        password1 = request.form.get("password1")
-        password2 = request.form.get("password2")
-        
-        if password1 != password2:
-            flash("Passwords don't match.", category="error")
-        elif len(password1) < 3:
-            flash("Password must be at least 3 characters.", category="error")
-        else:
-            flash("Password changed successfully!", category="success")
-            return redirect(url_for("auth.send_email_change_password"))
-        
-    return render_template("auth/forgot_password.html", user=current_user)
+
 
 @auth.route('/<path:path>')
 def catch_all(path):

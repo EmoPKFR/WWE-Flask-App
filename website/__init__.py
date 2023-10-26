@@ -33,12 +33,14 @@ def create_app():
     from .views import views
     from .auth import auth
     from .shows import shows
+    from .emails import emails
     
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
     app.register_blueprint(shows, url_prefix="/")
+    app.register_blueprint(emails, url_prefix="/")
     
-    from .models import User, Order
+    from .models import User
     
     create_database(app)
     
