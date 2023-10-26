@@ -6,6 +6,8 @@ from . import db
 
 views = Blueprint("views", __name__)
 
+
+
 @views.route("/")
 @views.route("/home")
 def home():
@@ -23,15 +25,15 @@ def champions():
 def shop():
     return render_template("shop_info/shop.html", user=current_user)
 
-
 @views.route("/t_shirts")
 def t_shirts():
     return render_template("shop_info/t_shirts.html", user=current_user)
 
-
 @views.route("/titles")
 def titles():
     return render_template("shop_info/titles.html", user=current_user)
+
+cart = {}
 
 @views.route("/title_info", methods=["GET", "POST"])
 def title_info():
@@ -102,7 +104,7 @@ def toy_info():
     return render_template("shop_info/toy_info.html", user=current_user, img=img, product_name=product_name, price=price)
 
 # Initialize an empty shopping cart (a dictionary)
-cart = {}
+
 
 @views.route("/product_info", methods=["GET", "POST"])
 def product_info():
@@ -140,6 +142,8 @@ def product_info():
 @views.route("/basket", methods=["GET", "POST"])
 @login_required
 def basket():
+    global cart  # Declare 'cart' as a global variable
+    
     if not (current_user.card_number and current_user.expiry_date and current_user.cvv):
         flash("Please Add Payment Card before making a purchase.", category="warning")
         return redirect(url_for("auth.profile_page"))  # Redirect to the profile page to update payment info
@@ -180,12 +184,18 @@ def basket():
             for product_title, data in all_products.items():
                 total_product_price += data['product_price'] * data['quantity']
 
-            
+            if total_product_price >= 500:
+                total_product_price *= 0.9
+                
             new_order = Order(products=products_str , total_price=total_product_price, shipping_address=shipping_address,
                               email=current_user.email, username=current_user.username)
             db.session.add(new_order)
             db.session.commit()
             flash("Order is successfully purchased!", category="success")
+            
+            # Clear the cart by reassigning it as an empty dictionary
+            cart = {}
+            
             return redirect(url_for("views.home"))
     
     for product_title, details in cart.items():

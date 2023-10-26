@@ -25,7 +25,14 @@
         </li>
         {% endfor %}
     </ul>
+    
+    {%if total_amount >= 500%}
+    <h2>Total Price: {{ total_amount }}€ - 10% = {{ total_amount * 0.9 }}</h2>
+    <p>Your Total Price is 500€ or more so you will get 10% discount</p>
+    {%else%}
     <h2>Total Price: {{ total_amount }}€</h2>
+    <p>(If Total Price is 500€ or more, you will get 10% discount)</p>
+    {%endif%}
     <a href="/shop">Add Product/Products</a>
     {%if total_amount > 0%}
     <form method="POST">
