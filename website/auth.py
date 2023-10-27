@@ -58,7 +58,6 @@ def register():
         elif len(password1) < 3:
             flash("Password must be at least 3 characters.", category="error")
         elif not card_number and not expiry_date and not cvv:
-            new_user = User(email=email, username=username, password=generate_password_hash(password1, method="sha256"))
             session["email"] = email
             session["username"] = username
             session["password"] = generate_password_hash(password1, method="sha256")
@@ -74,11 +73,6 @@ def register():
             elif not cvv.isdigit() or len(cvv) != 3:
                 flash("CVV must be exact 3 digits.", category="error")
             else:
-                new_user = User(email=email, username=username, 
-                                password=generate_password_hash(password1, method="sha256"), 
-                                card_number=generate_password_hash(card_number, method="sha256"),
-                                expiry_date=expiry_date,
-                                cvv=generate_password_hash(cvv, method="sha256"))
                 session["email"] = email
                 session["username"] = username
                 session["password"] = generate_password_hash(password1, method="sha256")

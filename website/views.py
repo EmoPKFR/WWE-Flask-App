@@ -1,5 +1,5 @@
 import json
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_login import login_required, current_user
 from .models import Order
 from . import db
@@ -185,23 +185,32 @@ def basket():
                 total_product_price += data['product_price'] * data['quantity']
 
             if total_product_price >= 500:
-                total_product_price *= 0.9
-                
-            new_order = Order(products=products_str , total_price=total_product_price, shipping_address=shipping_address,
-                              email=current_user.email, username=current_user.username)
-            db.session.add(new_order)
-            db.session.commit()
-            flash("Order is successfully purchased!", category="success")
+                total_product_price *= 0.9      
+            
+            session["products"] = products_str
+            session["total_price"] = total_product_price
+            session["shipping_address"] = shipping_address
+            session['cart'] = cart
+            session['total_product_price'] = total_product_price
             
             # Clear the cart by reassigning it as an empty dictionary
             cart = {}
-            
-            return redirect(url_for("views.home"))
-    
+            return redirect(url_for("emails.send_email_order"))
+
     for product_title, details in cart.items():
         total_amount += details['total_price']
-        
-    return render_template("shop_info/basket.html", user=current_user, cart=cart, total_amount=total_amount)
+    
+    #Format the total amount to the second digit after the decimal point
+    total_amount = round(total_amount, 2)
+    formatted_total_amount_str = "{:.2f}".format(total_amount)
+    total_amount_with_discount = round(total_amount * 0.9, 2)
+    formatted_total_amount_with_discount = "{:.2f}".format(total_amount_with_discount)
+    
+    return render_template("shop_info/basket.html", user=current_user, cart=cart, 
+                        total_amount=total_amount, 
+                        formatted_total_amount_str=formatted_total_amount_str,
+                        total_amount_with_discount=total_amount_with_discount,
+                        formatted_total_amount_with_discount=formatted_total_amount_with_discount)
 
 @views.route('/remove_product', methods=['POST'])
 def remove_product():
