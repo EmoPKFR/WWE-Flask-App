@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from .models import User, Order
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 from . import db # This means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_mail import Message
-from . import create_app, mail  # Import the create_app function
+from . import mail  # Import the create_app function
 
 emails = Blueprint("emails", __name__)
 
@@ -58,6 +58,7 @@ def confirm_register():
 
 
 @emails.route("/send_email_change_password", methods=["GET"])
+@login_required
 def send_email_change_password():
     # Create the email message
     msg_title = "Change Password"
@@ -84,6 +85,7 @@ def send_email_change_password():
     return redirect(url_for("views.home"))
 
 @emails.route("/confirm_change_password")
+@login_required
 def confirm_change_password():
     new_password = session.get("new_password")
     if current_user.is_authenticated:
@@ -105,6 +107,7 @@ def confirm_change_password():
     
 
 @emails.route("/send_email_delete_account")
+@login_required
 def send_email_delete_account():
     # Create the email message
     msg_title = "Delete Account"
@@ -128,6 +131,7 @@ def send_email_delete_account():
     return redirect(url_for("views.home"))
 
 @emails.route("/confirm_delete_account")
+@login_required
 def confirm_delete_account():
     email = session.get("email")
     user = User.query.filter_by(email=email).first()

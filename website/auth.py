@@ -3,12 +3,23 @@ from .models import User, Order
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db # This means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
-from flask_mail import Message
-from . import create_app, mail  # Import the create_app function
+from functools import wraps
 
 auth = Blueprint("auth", __name__)
 
+def not_logged_in_required_with_message(message_category, message):
+    def decorator(view_func):
+        @wraps(view_func)
+        def decorated_view(*args, **kwargs):
+            if current_user.is_authenticated:
+                flash(message, category=message_category)
+                return redirect(url_for('auth.profile_page'))  # Redirect to a dashboard or any other logged-in route
+            return view_func(*args, **kwargs)
+        return decorated_view
+    return decorator
+
 @auth.route("/login", methods=["GET", "POST"])
+@not_logged_in_required_with_message("warning", "You cannot go to Login Page when you are logged in.")
 def login():
     if request.method == "POST":
         email = request.form.get("email")
@@ -33,6 +44,7 @@ def logout():
     return redirect(url_for("auth.login"))
 
 @auth.route("/register", methods=["GET", "POST"])
+@not_logged_in_required_with_message("warning", "You cannot go to Register Page when you are logged in.")
 def register():
     if request.method == "POST":
         email = request.form.get("email")
@@ -91,6 +103,7 @@ def register():
     return render_template("auth/register.html", user=current_user)
 
 @auth.route("/profile_page", methods=["GET", "POST"])
+@login_required
 def profile_page():
     if request.method == "POST":
         if "change_password" in request.form:
@@ -131,6 +144,7 @@ def change_password():
     return render_template("auth/change_password.html", user=current_user)
 
 @auth.route("/forgot_password", methods=["GET", "POST"])
+@not_logged_in_required_with_message("warning", "You cannot go to Forgot Password page when you are logged in.")
 def forgot_password():
     if request.method == "POST":
         email = request.form.get("email")
