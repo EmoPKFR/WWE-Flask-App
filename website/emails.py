@@ -5,6 +5,8 @@ from . import db # This means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_mail import Message
 from . import mail  # Import the create_app function
+import secrets
+from .tokens import generate_unique_token, store_token_in_database, retrieve_order_data_from_token, mark_order_as_confirmed, invalidate_token
 
 emails = Blueprint("emails", __name__)
 
@@ -189,13 +191,22 @@ def send_email_order():
     total_amount = round(total_product_price, 2)
     formatted_total_amount_str = "{:.2f}".format(total_amount)
 
+    # Generate a unique token and store it in the database
+    confirmation_token = generate_unique_token()
+    store_token_in_database(confirmation_token)
+
+    # Include the token in the confirmation link
+    confirmation_link = f"http://127.0.0.1:5000/confirm_order/{confirmation_token}"
+    
     data = {
         'app_name': "WWE Flask App",
         'title': msg_title,
         'products': products,
         'total_price': total_price,
         'formatted_total_amount_str': formatted_total_amount_str,
-        'cart': cart
+        'cart': cart,
+        'confirmation_token': confirmation_token,
+        'confirmation_link': confirmation_link
     }
 
     msg.html = render_template("emails/confirm_order.html", data=data)
@@ -209,19 +220,34 @@ def send_email_order():
 
     return redirect(url_for("views.home"))
 
-@emails.route("/confirm_order")
-def confirm_order():
-    products = session.get("products")
-    total_price = session.get("total_price")
-    shipping_address = session.get("shipping_address")
+@emails.route("/confirm_order/<token>")
+def confirm_order(token):
+    # Verify the token and check if it's valid and hasn't expired
+    order_data = retrieve_order_data_from_token(token)
     
-    new_order = Order(products=products , total_price=total_price, shipping_address=shipping_address,
-                              email=current_user.email, username=current_user.username)
-    
-    db.session.add(new_order)
-    db.session.commit()
+    if order_data is not None:
+        # Mark the order as confirmed in the database
+        mark_order_as_confirmed(order_data['order_id'])
 
-    flash("The order has been sent successfully", category="success")
+        # Invalidate the token to prevent further use
+        invalidate_token(token)
+        
+        products = session.get("products")
+        total_price = session.get("total_price")
+        shipping_address = session.get("shipping_address")
+        
+        new_order = Order(products=products , total_price=total_price, shipping_address=shipping_address,
+                                email=current_user.email, username=current_user.username)
+        
+        db.session.add(new_order)
+        db.session.commit()
+
+        flash("The order has been sent successfully", category="success")
+        
+        
+        return render_template("home.html", user=current_user)
+    else:
+        flash("Invalid or expired confirmation link", category="error")
+        return render_template("auth/profile_page.html", user=current_user)
     
     
-    return render_template("home.html", user=current_user)

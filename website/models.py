@@ -31,3 +31,13 @@ class Order(db.Model):
     # Define a relationship to the User model
     user = relationship("User", back_populates="orders")
     
+class ConfirmationToken(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    token = db.Column(db.String(255), unique=True, nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
+    used = db.Column(db.Boolean, default=False)
+    expiration_time = db.Column(db.DateTime, nullable=False)
+    
+    def is_valid(self):
+        return not self.used and self.expiration_time > datetime.now()
+    

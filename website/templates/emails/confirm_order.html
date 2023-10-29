@@ -35,7 +35,7 @@
     <h3>Your Total Amount is: {{ data.formatted_total_amount_str}}€</h3>
     {%endif%}
 
-    <a href="{{ request.url_root ~ url_for('emails.confirm_order') }}">click here to confirm your order</a>
+    <a href="{{ request.url_root ~ url_for('emails.confirm_order', token=data.confirmation_token) }}">click here to confirm your order</a>
     <p>Best regards, EmoBG</p>
 </body>
 </html>
