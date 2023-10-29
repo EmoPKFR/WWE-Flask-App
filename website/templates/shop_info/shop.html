@@ -2,8 +2,8 @@
 
 {%block title%}Shop{%endblock%}
 {%block custom_css%}
-<link rel="stylesheet" href="static/dark-mode.css">
-<link rel="stylesheet" href="static/shop.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='dark-mode.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='shop.css') }}">
 {%endblock%}
 {%block content%}
     <h1>Shop</h1>

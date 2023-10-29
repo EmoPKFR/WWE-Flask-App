@@ -1,11 +1,10 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from flask import Blueprint, render_template, flash, redirect, url_for, session
 from .models import User, Order
 from werkzeug.security import generate_password_hash
 from . import db # This means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_mail import Message
 from . import mail  # Import the create_app function
-import secrets
 from .tokens import generate_unique_token, store_token_in_database, retrieve_order_data_from_token, mark_order_as_confirmed, invalidate_token
 
 emails = Blueprint("emails", __name__)
@@ -87,7 +86,6 @@ def send_email_change_password():
     return redirect(url_for("views.home"))
 
 @emails.route("/confirm_change_password")
-@login_required
 def confirm_change_password():
     new_password = session.get("new_password")
     if current_user.is_authenticated:
@@ -171,7 +169,6 @@ def send_email_reset_password():
         mail.send(msg)
         flash("Check your Email to change your password.", category="success")
     except Exception as e:
-        print(e)
         flash(f"The Email was not sent: {e}", category="error")
 
     return redirect(url_for("views.home"))
@@ -194,9 +191,6 @@ def send_email_order():
     # Generate a unique token and store it in the database
     confirmation_token = generate_unique_token()
     store_token_in_database(confirmation_token)
-
-    # Include the token in the confirmation link
-    confirmation_link = f"http://127.0.0.1:5000/confirm_order/{confirmation_token}"
     
     data = {
         'app_name': "WWE Flask App",
@@ -205,8 +199,7 @@ def send_email_order():
         'total_price': total_price,
         'formatted_total_amount_str': formatted_total_amount_str,
         'cart': cart,
-        'confirmation_token': confirmation_token,
-        'confirmation_link': confirmation_link
+        'confirmation_token': confirmation_token
     }
 
     msg.html = render_template("emails/confirm_order.html", data=data)
@@ -245,7 +238,7 @@ def confirm_order(token):
         flash("The order has been sent successfully", category="success")
         
         
-        return render_template("home.html", user=current_user)
+        return render_template("shop_info/shop.html", user=current_user)
     else:
         flash("Invalid or expired confirmation link", category="error")
         return render_template("auth/profile_page.html", user=current_user)

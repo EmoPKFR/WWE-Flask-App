@@ -1,41 +1,32 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirm Order</title>
-</head>
-<body>
-    <h1>{{data.app_name}}</h1>
-    <br>
-    <h2>Confirm Order</h2>
-    <br>
-    <h1>Your Cart</h1>
-    <br>
-    <table border="1">
+<h1>{{data.app_name}}</h1>
+<br>
+<h2>Confirm Order</h2>
+<br>
+<h1>Your Cart</h1>
+<br>
+<table border="1">
+    <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+    </tr>
+    {% for product_name, product_data in data.cart.items() %}
         <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total Price</th>
+            <td>{{ product_name }}</td>
+            <td>{{ product_data['product_price'] }}€</td>
+            <td>{{ product_data['quantity'] }}</td>
+            <td>{{ product_data['total_price'] }}€</td>
         </tr>
-        {% for product_name, product_data in data.cart.items() %}
-            <tr>
-                <td>{{ product_name }}</td>
-                <td>{{ product_data['product_price'] }}€</td>
-                <td>{{ product_data['quantity'] }}</td>
-                <td>{{ product_data['total_price'] }}€</td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% endfor %}
+</table>
 
-    {%if data.total_price >= 500%}
-    <h3>Your Total Amount is: {{ data.formatted_total_amount_str}}€</h3>
-    <h3>You have 10% discount because your order is greater than or equal to 500€.</h3>
-    {%else%}
-    <h3>Your Total Amount is: {{ data.formatted_total_amount_str}}€</h3>
-    {%endif%}
+{%if data.total_price >= 500%}
+<h3>Your Total Amount is: {{ data.formatted_total_amount_str}}€</h3>
+<h3>You have 10% discount because your order is greater than or equal to 500€.</h3>
+{%else%}
+<h3>Your Total Amount is: {{ data.formatted_total_amount_str}}€</h3>
+{%endif%}
 
-    <a href="{{ request.url_root ~ url_for('emails.confirm_order', token=data.confirmation_token) }}">click here to confirm your order</a>
-    <p>Best regards, EmoBG</p>
-</body>
-</html>
+<a href="{{ request.url_root ~ url_for('emails.confirm_order', token=data.confirmation_token) }}">click here to confirm your order</a>
+<p>Best regards, EmoBG</p>

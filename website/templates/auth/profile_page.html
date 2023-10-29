@@ -2,8 +2,8 @@
 
 {%block title%}Profile Page{%endblock%}
 {%block custom_css%}
-<link rel="stylesheet" href="static/dark-mode.css">
-<link rel="stylesheet" href="static/profile_page.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='dark-mode.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='profile_page.css') }}">
 {%endblock%}
 {%block content%}
 <form method="POST">

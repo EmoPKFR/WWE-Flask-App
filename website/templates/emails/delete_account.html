@@ -1,16 +1,7 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Account</title>
-</head>
-<body>
-    <h1>{{data.app_name}}</h1>
-    <br>
-    <h2>Delete Account</h2>
-    <br>
-    <p>If you are sure that you want to delete your account click on the link below:</p>
-    <a href="{{ request.url_root ~ url_for('emails.confirm_delete_account') }}">click here to delete your account</a>
-    <p>Best regards, EmoBG</p>
-</body>
-</html>
+<h1>{{data.app_name}}</h1>
+<br>
+<h2>Delete Account</h2>
+<br>
+<p>If you are sure that you want to delete your account click on the link below:</p>
+<a href="{{ request.url_root ~ url_for('emails.confirm_delete_account') }}">click here to delete your account</a>
+<p>Best regards, EmoBG</p>

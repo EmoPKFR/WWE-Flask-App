@@ -1,7 +1,6 @@
 import secrets
 import string
-from flask_login import login_user, login_required, logout_user, current_user
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from flask_login import current_user
 from . import db # This means from __init__.py import db
 
 def generate_unique_token():
