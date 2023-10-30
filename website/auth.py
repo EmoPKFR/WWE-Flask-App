@@ -73,12 +73,10 @@ def register():
             session["email"] = email
             session["username"] = username
             session["password"] = generate_password_hash(password1, method="sha256")
+            session["card_number"] = None
+            session["expiry_date"] = None
+            session["cvv"] = None
             return redirect(url_for("emails.send_email_register"))
-            # db.session.add(new_user)
-            # db.session.commit()
-            # login_user(new_user, remember=True) 
-            # flash("Account created!", category="success")
-            # return redirect(url_for("views.home"))
         elif card_number and expiry_date and cvv:
             if not card_number.isdigit() or len(card_number) != 10:
                 flash("Card number must be exact 10 digits.", category="error")
@@ -98,7 +96,7 @@ def register():
                 # flash("Account created!", category="success")
                 # return redirect(url_for("views.home"))
         else:
-            flash("You have to fill Card Number, Expiry Month, Expiry Year and CVV or leave them Null.", category="error")
+            flash("You have to fill Card Number, Expiry date and CVV or leave them Null.", category="error")
         
     return render_template("auth/register.html", user=current_user)
 
@@ -255,7 +253,7 @@ def database():
 
 
 
-@auth.route('/<path:path>')
-def catch_all(path):
-    # Here, you can generate or render example HTML or return a custom error page
-    return render_template("auth/catch_all_routes.html")
+# @auth.route('/<path:path>')
+# def catch_all(path):
+#     # Here, you can generate or render example HTML or return a custom error page
+#     return render_template("auth/catch_all_routes.html")

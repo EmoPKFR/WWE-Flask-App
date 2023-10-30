@@ -1,0 +1,13 @@
+{%extends "base.html"%}
+
+{%block title%}Invalid or expired token{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="{{ url_for('static', filename='dark-mode.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='redirect_from_email_links.css') }}">
+{%endblock%}
+{%block content%}
+<h2>This link is no longer available</h2>
+<p><a href="/home">Back to the Home Page</a></p>
+<br>
+    <!-- <div class="clearfix"></div> Clear the float to prevent layout issues -->
+{%endblock%}

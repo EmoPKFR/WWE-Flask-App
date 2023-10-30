@@ -3,5 +3,6 @@
 <h2>Register Account</h2>
 <br>
 <p>To confirm your account, please click on the link below</p>
-<a href="{{ request.url_root ~ url_for('emails.confirm_register') }}">click here to confirm your registration</a>
+<a href="{{ request.url_root ~ url_for('emails.confirm_register', token=data.confirmation_token2) }}">click here to confirm your registration</a>
+(Link is only valid up to 24 hours after it is sent or first opening)
 <p>Best regards, EmoBG</p>

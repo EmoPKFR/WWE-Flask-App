@@ -1,0 +1,15 @@
+{%extends "base.html"%}
+
+{%block title%}Successful Order{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="{{ url_for('static', filename='dark-mode.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='redirect_from_email_links.css') }}">
+{%endblock%}
+{%block content%}
+<h1>Hello, {{user.username}}</h1>
+<h2>Thank you for ordering a product/products from our website</h2>
+<p>You want to buy something else? <a href="/shop">Go to the Shop Page</a></p>
+<p><a href="/home">Back to the Home Page</a></p>
+<br>
+    <!-- <div class="clearfix"></div> Clear the float to prevent layout issues -->
+{%endblock%}

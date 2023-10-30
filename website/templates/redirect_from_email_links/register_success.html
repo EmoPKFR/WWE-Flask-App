@@ -1,0 +1,17 @@
+{%extends "base.html"%}
+
+{%block title%}Register Successfully{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="{{ url_for('static', filename='dark-mode.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='redirect_from_email_links.css') }}">
+{%endblock%}
+{%block content%}
+<h1>Hello, {{user.username}}</h1>
+<h2>You have successfully registered to WWE Flask App</h2>
+<h3>If you have added payment card, you can buy products from the website.</h3>
+<h3>If you want to add payment card, you can do this:</h3>
+<h3>Click on Profile Page -> Add Payment Card</h3>
+<p><a href="/home">Back to the Home Page</a></p>
+<br>
+    <!-- <div class="clearfix"></div> Clear the float to prevent layout issues -->
+{%endblock%}

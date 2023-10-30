@@ -5,24 +5,35 @@ from . import db # This means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_mail import Message
 from . import mail  # Import the create_app function
-from .tokens import generate_unique_token, store_token_in_database, retrieve_order_data_from_token, mark_order_as_confirmed, invalidate_token
+from .tokens import (generate_unique_token, store_token_in_database as store_token_in_database1,
+    retrieve_order_data_from_token, mark_order_as_confirmed, invalidate_token as invalidate_token1)
+from .token_for_register import store_token_in_database as store_token_in_database2, verify_token,invalidate_token as invalidate_token2
 
 emails = Blueprint("emails", __name__)
 
 @emails.route("/send_email_register")
 def send_email_register():
+    """Sends an email to the user with a confirmation token."""
+
+    # Get the user's email address
     email = session.get("email")
-    msg_title = "Confirm Your Account"
-    sender = "noreply@app.com"
-    msg = Message(msg_title, sender=sender, recipients=[email])
+
+    # Generate a unique token and store it in the database
+    confirmation_token2 = generate_unique_token()
+    store_token_in_database2(confirmation_token2, email)
+
+    # Create a message object
+    msg = Message("Confirm Your Account", sender="noreply@app.com", recipients=[email])
     
     data = {
         'app_name': "WWE Flask App",
-        'title': msg_title,
+        'confirmation_token2': confirmation_token2
     }
 
-    msg.html = render_template("emails/register.html", data=data)
+    # Add the confirmation token to the message body
+    msg.html = render_template("emails/register.html", confirmation_token2=confirmation_token2, data=data)
 
+    # Try to send the email
     try:
         mail.send(msg)
         flash("Check your Email to Create your account.", category="success")
@@ -33,29 +44,39 @@ def send_email_register():
     return redirect(url_for("views.home"))
 
 
-@emails.route("/confirm_register")
-def confirm_register():
-    email = session.get("email")
-    username = session.get("username")
-    password = session.get("password")
-    card_number = session.get("card_number")
-    expiry_date = session.get("expiry_date")
-    cvv = session.get("cvv")
-    
-    if card_number is None:
-        new_user = User(email=email, username=username, password=password)
+@emails.route("/confirm_register/<token>")
+def confirm_register(token):
+    """Confirms the user's registration by validating the confirmation token."""
+
+    # Verify the token and check if it's valid and hasn't expired
+    is_valid_token = verify_token(token)
+
+    # If the token is valid, create a new user account
+    if is_valid_token:
+        # Create a new user object
+        password = session.get("password")
+        username = session.get("username")
+        card_number = session.get("card_number")
+        expiry_date = session.get("expiry_date")
+        cvv = session.get("cvv")
+
+        new_user = User(email=session.get("email"), password=password, username=username, card_number=card_number, expiry_date=expiry_date, cvv=cvv)
+
+        # Add the user to the database
+        db.session.add(new_user)
+        db.session.commit()
+
+        # Log in the user
+        login_user(new_user, remember=True)
+        flash("Account created successfully!", category="success")
+
+        # Invalidate the token immediately after the user clicks on the link
+        invalidate_token2(token)
+
+        return render_template("redirect_from_email_links/register_success.html", user=current_user)
     else:
-        new_user = User(email=email, 
-                        username=username, 
-                        password=password, 
-                        card_number=card_number,
-                        expiry_date=expiry_date,
-                        cvv=cvv)
-    db.session.add(new_user)
-    db.session.commit()
-    login_user(new_user, remember=True) 
-    flash("Account created successfully!", category="success")
-    return render_template("home.html", user=current_user)
+        flash("Invalid or expired confirmation link", category="error")
+        return render_template("redirect_from_email_links/invalid_or_expired_link.html", user=current_user)
 
 
 @emails.route("/send_email_change_password", methods=["GET"])
@@ -189,8 +210,8 @@ def send_email_order():
     formatted_total_amount_str = "{:.2f}".format(total_amount)
 
     # Generate a unique token and store it in the database
-    confirmation_token = generate_unique_token()
-    store_token_in_database(confirmation_token)
+    confirmation_token1 = generate_unique_token()
+    store_token_in_database1(confirmation_token1)
     
     data = {
         'app_name': "WWE Flask App",
@@ -199,7 +220,7 @@ def send_email_order():
         'total_price': total_price,
         'formatted_total_amount_str': formatted_total_amount_str,
         'cart': cart,
-        'confirmation_token': confirmation_token
+        'confirmation_token1': confirmation_token1
     }
 
     msg.html = render_template("emails/confirm_order.html", data=data)
@@ -223,7 +244,7 @@ def confirm_order(token):
         mark_order_as_confirmed(order_data['order_id'])
 
         # Invalidate the token to prevent further use
-        invalidate_token(token)
+        invalidate_token1(token)
         
         products = session.get("products")
         total_price = session.get("total_price")
@@ -238,9 +259,9 @@ def confirm_order(token):
         flash("The order has been sent successfully", category="success")
         
         
-        return render_template("shop_info/shop.html", user=current_user)
+        return render_template("redirect_from_email_links/order_success.html", user=current_user)
     else:
         flash("Invalid or expired confirmation link", category="error")
-        return render_template("auth/profile_page.html", user=current_user)
+        return render_template("redirect_from_email_links/invalid_or_expired_link.html", user=current_user)
     
     
