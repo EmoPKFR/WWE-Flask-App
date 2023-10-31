@@ -28,12 +28,6 @@ def retrieve_order_data_from_token(token):
         }
     else:
         return None
-    
-def mark_order_as_confirmed(order_id):
-    order = ConfirmationToken.query.get(order_id)
-    if order:
-        order.confirmed = True
-        db.session.commit()
         
 def invalidate_token(token):
     record = ConfirmationToken.query.filter_by(token=token).first()

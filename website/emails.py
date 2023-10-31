@@ -6,7 +6,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from flask_mail import Message
 from . import mail  # Import the create_app function
 from .tokens import (generate_unique_token, store_token_in_database as store_token_in_database1,
-    retrieve_order_data_from_token, mark_order_as_confirmed, invalidate_token as invalidate_token1)
+    retrieve_order_data_from_token, invalidate_token as invalidate_token1)
 from .token_for_register import store_token_in_database as store_token_in_database2, verify_token,invalidate_token as invalidate_token2
 
 emails = Blueprint("emails", __name__)
@@ -87,15 +87,17 @@ def send_email_change_password():
     sender = "noreply@app.com"
     msg = Message(msg_title, sender=sender, recipients=[current_user.email])
     
+    confirmation_token1 = generate_unique_token()
+    store_token_in_database1(confirmation_token1)
+    
     new_password = session.get("new_password")
     
     data = {
         'app_name': "WWE Flask App",
-        'title': msg_title,
         'new_password': new_password # Pass the new_password to the email template
     }
 
-    msg.html = render_template("emails/change_password.html", data=data)
+    msg.html = render_template("emails/change_password.html", data=data, change_password_token=confirmation_token1)
 
     try:
         mail.send(msg)
@@ -106,25 +108,36 @@ def send_email_change_password():
 
     return redirect(url_for("views.home"))
 
-@emails.route("/confirm_change_password")
-def confirm_change_password():
+@emails.route("/confirm_change_password/<change_password_token>")
+def confirm_change_password(change_password_token):
     new_password = session.get("new_password")
-    if current_user.is_authenticated:
-        current_user.password=generate_password_hash(new_password, method="sha256")  
-    else:
-        user_id = session.get("user_id")
-        if user_id is not None:
-            user = User.query.get(user_id)
-            if user:
-                user.password = generate_password_hash(new_password, method="sha256")
-                login_user(user)
-            else:
-                flash("User not found.", category="error")
+    
+    # Verify the token and check if it's valid and hasn't expired
+    order_data = retrieve_order_data_from_token(change_password_token)
+    
+    if order_data is not None:
+        # Invalidate the token to prevent further use
+        invalidate_token1(change_password_token)
+        
+        if current_user.is_authenticated:
+            current_user.password=generate_password_hash(new_password, method="sha256")  
         else:
-            flash("User information not found in the session.", category="error")
-    db.session.commit()
-    flash("Password changed successfully!", category="success")
-    return render_template("home.html", user=current_user)
+            user_id = session.get("user_id")
+            if user_id is not None:
+                user = User.query.get(user_id)
+                if user:
+                    user.password = generate_password_hash(new_password, method="sha256")
+                    login_user(user)
+                else:
+                    flash("User not found.", category="error")
+            else:
+                flash("User information not found in the session.", category="error")
+        db.session.commit()
+        flash("Password changed successfully!", category="success")
+        return render_template("redirect_from_email_links/change_password_success.html", user=current_user)
+    else:
+        flash("Invalid or expired confirmation link", category="error")
+        return render_template("redirect_from_email_links/invalid_or_expired_link.html", user=current_user)
     
 
 @emails.route("/send_email_delete_account")
@@ -159,9 +172,6 @@ def confirm_delete_account(delete_account_token):
     order_data = retrieve_order_data_from_token(delete_account_token)
     
     if order_data is not None:
-        # Mark the order as confirmed in the database
-        mark_order_as_confirmed(order_data['order_id'])
-
         # Invalidate the token to prevent further use
         invalidate_token1(delete_account_token)
         
@@ -209,7 +219,8 @@ def send_email_reset_password():
     return redirect(url_for("views.home"))
 
 
-@emails.route("/send_order")
+@emails.route("/send_email_order")
+@login_required
 def send_email_order():
     products = session.get("products")
     total_price = session.get("total_price")
@@ -253,9 +264,6 @@ def confirm_order(confirm_order_token):
     order_data = retrieve_order_data_from_token(confirm_order_token)
     
     if order_data is not None:
-        # Mark the order as confirmed in the database
-        mark_order_as_confirmed(order_data['order_id'])
-
         # Invalidate the token to prevent further use
         invalidate_token1(confirm_order_token)
         
