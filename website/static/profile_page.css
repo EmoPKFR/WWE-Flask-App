@@ -1,11 +1,21 @@
+/* Center the form and adjust margins for smaller screens */
 .form-group {
-    margin-left: 400px; /* Adjust this value to increase or decrease the white space */
-    margin-right: 400px; /* Adjust this value to increase or decrease the white space */
-    }
-  
-  .custom-size-btn {
-    display: block;
-    margin: 0 auto;
-    width: 185px; /* Adjust this value to set the desired width for your buttons */
-    height: 40px; /* Adjust this value to set the desired height for your buttons */
+  margin: 0 auto;
+  max-width: 80%;
+  text-align: center;
+}
+
+/* Center and adjust the buttons */
+.custom-size-btn {
+  display: block;
+  margin: 10px auto;
+  width: 185px;
+  height: 40px;
+}
+
+/* Adjust font size for smaller screens */
+@media (max-width: 768px) {
+  .form-group {
+      font-size: 14px; /* Adjust the font size as needed */
   }
+}

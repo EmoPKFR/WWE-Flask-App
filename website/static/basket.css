@@ -3,9 +3,9 @@
     height: auto; /* Auto-adjust the height to maintain the aspect ratio */
     margin: 20px; /* Add margin around the image */
     /* padding: 10px; Add padding inside the image */
-    border: 15px solid aqua; /* Add a border with a color */
+    border: 15px solid #ccc; /* Add a border with a color */
     border-radius: 5px; /* Add rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
 }
 
 .remove-button {

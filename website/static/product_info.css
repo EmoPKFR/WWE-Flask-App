@@ -3,42 +3,46 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: auto; /* Use auto to allow content to expand vertically */
+    padding: 10px; /* Add some padding to the center container for spacing */
     margin: 0;
 }
+
 /* Basic styling for the product card */
 .product-card {
     display: flex;
+    flex-direction: column; /* Stack elements vertically on small screens */
     align-items: center;
     padding: 10px;
-    border: 1px solid #ccc;
-    margin: 10px;
-    max-width: 100%; /* Make it fill the entire width of the screen */
+    border: 10px solid #ccc;
+    margin: 50px;
+    max-width: 90%; /* Reduce the maximum width for better mobile experience */
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Center-align text content */
 }
 
 /* Style for the product image */
 .product-image {
-    max-width: 400px;
-    margin-right: 50px;
+    max-width: 100%; /* Make the image responsive to the card's width */
+    max-height: 300px; /* Set a maximum height for the image */
+    margin: 0 0 20px 0; /* Add spacing below the image */
 }
 
 /* Style for the product details */
 .product-details {
-    flex-grow: 1;
-    margin-right: 50px;
+    margin: 0 0 20px 0; /* Add spacing below the details */
 }
 
 /* Style for the product title */
 .product-title {
-    font-size: 30px;
+    font-size: 24px; /* Reduce the font size for smaller screens */
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 /* Style for the product price */
 .product-price {
-    font-size: 20px;
+    font-size: 16px; /* Reduce the font size for smaller screens */
     /* color: #FF5722; Change this color as needed */
 }
 
@@ -46,7 +50,7 @@
 .quantity-input {
     width: 60px;
     padding: 5px;
-    font-size: 20px;
+    font-size: 16px; /* Reduce the font size for smaller screens */
     text-align: center;
 }
 
@@ -56,12 +60,6 @@
     color: white;
     border: none;
     padding: 10px 15px;
-    font-size: 16px;
+    font-size: 16px; /* Reduce the font size for smaller screens */
     cursor: pointer;
-}
-
-/* Style for the size label */
-label {
-    font-size: 14px;
-    width: auto; /* Allow the label to expand to fit content */
 }

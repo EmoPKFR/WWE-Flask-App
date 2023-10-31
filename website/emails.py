@@ -135,12 +135,14 @@ def send_email_delete_account():
     sender = "noreply@app.com"
     msg = Message(msg_title, sender=sender, recipients=[current_user.email])
     
+    confirmation_token1 = generate_unique_token()
+    store_token_in_database1(confirmation_token1)
+    
     data = {
-        'app_name': "WWE Flask App",
-        'title': msg_title,
+        'app_name': "WWE Flask App"
     }
 
-    msg.html = render_template("emails/delete_account.html", data=data)
+    msg.html = render_template("emails/delete_account.html", data=data, delete_account_token=confirmation_token1)
 
     try:
         mail.send(msg)
@@ -151,16 +153,28 @@ def send_email_delete_account():
 
     return redirect(url_for("views.home"))
 
-@emails.route("/confirm_delete_account")
-@login_required
-def confirm_delete_account():
-    email = session.get("email")
-    user = User.query.filter_by(email=email).first()
-    db.session.delete(user)
-    db.session.commit()
-    flash("Account deleted successfully!", category="success")
-    logout_user()
-    return render_template("home.html", user=current_user)
+@emails.route("/confirm_delete_account/<delete_account_token>")
+def confirm_delete_account(delete_account_token):
+    # Verify the token and check if it's valid and hasn't expired
+    order_data = retrieve_order_data_from_token(delete_account_token)
+    
+    if order_data is not None:
+        # Mark the order as confirmed in the database
+        mark_order_as_confirmed(order_data['order_id'])
+
+        # Invalidate the token to prevent further use
+        invalidate_token1(delete_account_token)
+        
+        email = session.get("email")
+        user = User.query.filter_by(email=email).first()
+        db.session.delete(user)
+        db.session.commit()
+        flash("Account deleted successfully!", category="success")
+        logout_user()
+        return render_template("redirect_from_email_links/delete_account_success.html", user=current_user)
+    else:
+        flash("Invalid or expired confirmation link", category="error")
+        return render_template("redirect_from_email_links/invalid_or_expired_link.html", user=current_user)
 
 
 @emails.route("/send_email_reset_password")
@@ -215,7 +229,6 @@ def send_email_order():
     
     data = {
         'app_name': "WWE Flask App",
-        'title': msg_title,
         'products': products,
         'total_price': total_price,
         'formatted_total_amount_str': formatted_total_amount_str,
@@ -223,7 +236,7 @@ def send_email_order():
         'confirmation_token1': confirmation_token1
     }
 
-    msg.html = render_template("emails/confirm_order.html", data=data)
+    msg.html = render_template("emails/confirm_order.html", data=data, confirm_order_token=confirmation_token1)
 
     try:
         mail.send(msg)
@@ -234,17 +247,17 @@ def send_email_order():
 
     return redirect(url_for("views.home"))
 
-@emails.route("/confirm_order/<token>")
-def confirm_order(token):
+@emails.route("/confirm_order/<confirm_order_token>")
+def confirm_order(confirm_order_token):
     # Verify the token and check if it's valid and hasn't expired
-    order_data = retrieve_order_data_from_token(token)
+    order_data = retrieve_order_data_from_token(confirm_order_token)
     
     if order_data is not None:
         # Mark the order as confirmed in the database
         mark_order_as_confirmed(order_data['order_id'])
 
         # Invalidate the token to prevent further use
-        invalidate_token1(token)
+        invalidate_token1(confirm_order_token)
         
         products = session.get("products")
         total_price = session.get("total_price")

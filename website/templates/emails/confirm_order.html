@@ -28,6 +28,6 @@
 <h3>Your Total Amount is: {{ data.formatted_total_amount_str}}€</h3>
 {%endif%}
 
-<a href="{{ request.url_root ~ url_for('emails.confirm_order', token=data.confirmation_token1) }}">click here to confirm your order</a>
+<a href="{{ request.url_root ~ url_for('emails.confirm_order', confirm_order_token=confirm_order_token) }}">click here to confirm your order</a>
 <h3>(You must confirm the order within 24 hours of receiving this message)</h3>
 <p>Best regards, EmoBG</p>
