@@ -3,5 +3,5 @@
 <h2>Delete Account</h2>
 <br>
 <p>If you are sure that you want to delete your account click on the link below:</p>
-<a href="{{ request.url_root ~ url_for('emails.confirm_delete_account') }}">click here to delete your account</a>
+<a href="{{ request.url_root ~ url_for('emails.confirm_delete_account', delete_account_token=delete_account_token) }}">click here to delete your account</a>
 <p>Best regards, EmoBG</p>

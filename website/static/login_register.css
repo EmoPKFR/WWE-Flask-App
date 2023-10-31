@@ -1,17 +1,24 @@
+/* Center the form and adjust margins for smaller screens */
 .form-group {
-    margin-left: 400px; /* Adjust this value to increase or decrease the white space */
-    margin-right: 400px; /* Adjust this value to increase or decrease the white space */
-    }
-  
-  .custom-size-btn {
-    margin-left: 400px; 
-    margin-right: 400px;
-    width: 180px; /* Adjust this value to set the desired width for your buttons */
-    height: 40px; /* Adjust this value to set the desired height for your buttons */
-  }
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 60%; /* Adjust this value to control the maximum width */
+}
 
-  p {
-    margin-left: 400px; /* Adjust this value to increase or decrease the white space */
-    margin-right: 400px; /* Adjust this value to increase or decrease the white space */
-  }
-  
+/* Center the login button and adjust its size */
+.custom-size-btn {
+  margin-left: auto;
+  margin-right: auto;
+  display: block; /* Make the button a block-level element for better centering */
+  width: 100%; /* Make the button full width of the container */
+  max-width: 180px; /* Adjust this value to set the maximum button width */
+  height: 40px; /* Keep the desired height for your buttons */
+}
+
+/* Center the <p> elements */
+p {
+  text-align: center; /* Center-align the text */
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80%; /* Adjust this value to control the maximum width */
+}
