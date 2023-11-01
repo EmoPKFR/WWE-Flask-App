@@ -159,6 +159,7 @@ def forgot_password():
             flash("New password must be different than old password.", category="error")
         else:
             session["user_id"] = user.id
+            session["email"] = email
             session["new_password"] = new_password1
             return redirect(url_for("emails.send_email_reset_password"))
         

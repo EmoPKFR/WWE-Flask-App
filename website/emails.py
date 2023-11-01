@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, session
+from flask import Blueprint, render_template, flash, redirect, url_for, session, request
 from .models import User, Order
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from . import db # This means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_mail import Message
@@ -46,8 +46,6 @@ def send_email_register():
 
 @emails.route("/confirm_register/<token>")
 def confirm_register(token):
-    """Confirms the user's registration by validating the confirmation token."""
-
     # Verify the token and check if it's valid and hasn't expired
     is_valid_token = verify_token(token)
 
@@ -189,35 +187,61 @@ def confirm_delete_account(delete_account_token):
 
 @emails.route("/send_email_reset_password")
 def send_email_reset_password():
-    user_id = session.get("user_id")
+    email = session.get("email")
     new_password = session.get("new_password")
+
+    user = User.query.filter_by(email=email).first()
     
-    if user_id is not None:
-        user = User.query.get(user_id)
-    else:
-        flash("User information not found in the session.", category="error")
-        return redirect(url_for("views.home"))
-    
+    # Create the confirmation token
+    reset_password_token = generate_unique_token()
+    store_token_in_database2(reset_password_token, email)
+
+    # Add the reset_password_token to the session object
+    session["reset_password_token"] = reset_password_token
+
     # Create the email message
     msg_title = "Reset Password"
     sender = "noreply@app.com"
-    msg = Message(msg_title, sender=sender, recipients=[user.email])
-       
+    msg = Message(msg_title, sender=sender, recipients=[email])
+
     data = {
         'app_name': "WWE Flask App",
-        'new_password': new_password # Pass the new_password to the email template
+        'reset_password_token': reset_password_token,
+        'new_password': new_password
     }
 
-    msg.html = render_template("emails/forgot_password.html", data=data)
+    # Add the reset password token and the new password to the confirmation link
+
+    msg.html = render_template("emails/forgot_password.html", reset_password_token=reset_password_token, data=data)
 
     try:
         mail.send(msg)
-        flash("Check your Email to change your password.", category="success")
+        flash("Check your Email to reset your password.", category="success")
     except Exception as e:
         flash(f"The Email was not sent: {e}", category="error")
 
     return redirect(url_for("views.home"))
 
+@emails.route("/confirm_reset_password/<reset_password_token>")
+def confirm_reset_password(reset_password_token):
+    # Check if the reset_password_token is valid
+    is_valid_token = verify_token(reset_password_token)
+    
+    if is_valid_token:
+        email = session.get("email")
+        new_password = session.get("new_password")
+
+        user = User.query.filter_by(email=email).first()
+        user.password = generate_password_hash(new_password, method="sha256")
+        db.session.commit()
+        login_user(user, remember=True)
+        invalidate_token2(reset_password_token)
+        
+        flash("Password changed successfully!", category="success")
+        return render_template("redirect_from_email_links/change_password_success.html", user=current_user)
+    else:
+        flash("Invalid or expired confirmation link", category="error")
+        return render_template("redirect_from_email_links/invalid_or_expired_link.html", user=current_user)
 
 @emails.route("/send_email_order")
 @login_required
@@ -284,5 +308,3 @@ def confirm_order(confirm_order_token):
     else:
         flash("Invalid or expired confirmation link", category="error")
         return render_template("redirect_from_email_links/invalid_or_expired_link.html", user=current_user)
-    
-    
