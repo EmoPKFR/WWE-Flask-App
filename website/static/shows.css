@@ -34,15 +34,18 @@
   /* This is for the link for second page */
   .button-link {
     display: inline-block;
-    padding: 10px 20px; /* Adjust padding as needed */
-    background-color: #007BFF; /* Change to your desired button background color */
-    color: #fff; /* Text color */
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
     text-decoration: none;
     border: none;
     border-radius: 5px;
-    cursor: wait;
+    cursor: pointer;
     transition: background-color 0.9s ease;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+    text-align: center;
+    width: 46px; /* Set a fixed width for the square button */
+    height: 46px; /* Set a fixed height for the square button */
+    line-height: 23px; /* Center text vertically within the square */
+    margin: 0 auto; /* Center the button horizontally */
+    margin-bottom: 40px; /* Add margin to create space between the link and the footer */
+}

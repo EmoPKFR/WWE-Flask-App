@@ -48,6 +48,9 @@
         placeholder="Confirm Password"
         maxlength="50">
     </div>
+    <br>
+    <br>
+    <h3 align="center">Add Payment Card(not required)</h3>
     <div class="form-group">
         <label for="card_number">Card number:</label>
         <input 
@@ -56,7 +59,7 @@
         id="card_number" 
         name="card_number" 
         placeholder="Enter Card Number"
-        maxlength="10">
+        maxlength="19">
     </div>
     <div class="form-group">
         <label for="expiry_date">Expiry date (MM/YY):</label>
@@ -82,5 +85,5 @@
     <button type="submit" class="btn btn-primary custom-size-btn">Register</button>
     <p>You Already have an account? <a href="/login">Login</a></p>
 </form>
-<script src="static/mm-yy_format.js"></script>
+<script src="static/payment_card.js"></script>
 {%endblock%}

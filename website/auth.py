@@ -187,19 +187,20 @@ def delete_account():
 def add_payment_card():
     if request.method == "POST":
         card_number = request.form.get("card_number")
+        # Remove spaces from the card number
+        card_number = card_number.replace(" ", "")
         expiry_date = request.form.get("expiry_date")
         expiry_month = request.form.get("expiry_date")[:2]
         expiry_year = request.form.get("expiry_date")[-2:]
         cvv = request.form.get("cvv")
         
-        if not card_number.isdigit() or len(card_number) != 10:
-            flash("Card number must be exact 10 digits.", category="error")
+        if len(card_number) != 16:
+            flash("Card number must be exact 16 digits.", category="error")
         elif not expiry_month.isdigit() or not expiry_year.isdigit() or int(expiry_month) > 12:
             flash("Expiry date must be filled in MM/YY format.", category="error")
         elif not cvv.isdigit() or len(cvv) != 3:
             flash("CVV must be exact 3 digits.", category="error")
         elif current_user.card_number is not None:
-            # or (current_user.card_number == card_number and current_user.expiry_date == expiry_date) or (current_user.cvv == cvv and current_user.expiry_date == expiry_date)
             if (current_user.card_number == int(card_number) or current_user.cvv == int(cvv) or
                 (current_user.card_number == int(card_number) and current_user.expiry_date != expiry_date) or
                 (current_user.cvv == int(cvv) and current_user.expiry_date != expiry_date)):

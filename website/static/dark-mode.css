@@ -81,3 +81,37 @@
     z-index: 102; /* A higher z-index than your background image (e.g., 102) */
     position: relative;
 }
+
+/* Sticky Footer Styles */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes at least the full height of the viewport. */
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    margin-top: auto; /* Push the footer to the bottom of the viewport. */
+}
+
+.footer p {
+    margin: 0;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column; /* Stack child elements vertically */
+    align-items: center; /* Center child elements horizontally */
+}
+
+.contacts, .follow-me {
+    text-align: center; /* Center text within their respective containers */
+}
+
+#contacts_footer, #phone_footer, #email_footer, #follow_me_footer, #facebook_footer, #instagram_footer {
+    display: inline; /* Set display to "inline" for inline elements */
+    margin-right: 10px; /* Add some spacing between elements */
+}
