@@ -1,6 +1,7 @@
 import json
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_login import login_required, current_user
+from .models import Order
 
 views = Blueprint("views", __name__)
 
@@ -219,3 +220,10 @@ def remove_product():
 
     return redirect(url_for('views.basket'))
 
+@views.route('/orders_history')
+@login_required
+def orders_history():
+    user_orders = Order.query.filter_by(username=current_user.username).all()
+    orders = Order.query.all()
+
+    return render_template("orders_history.html", user=current_user, user_orders=user_orders, orders=orders)

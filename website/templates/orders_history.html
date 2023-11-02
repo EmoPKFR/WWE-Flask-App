@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Orders History{% endblock %}
+{% block content %}
+<h3 align="center">Orders History</h3>
+<table class="table custom-table">
+    <thead>
+        <tr>
+            <th class="custom-header">ID</th>
+            <th class="custom-header">Products</th>
+            <th class="custom-header">Total Price</th>
+            <th class="custom-header">Shipping Address</th>
+            <th class="custom-header">Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in user_orders %}
+            <tr>
+                <td class="custom-cell">{{ order.id }}</td>
+                <td class="custom-cell">{{ order.products }}</td>
+                <td class="custom-cell">{{ order.total_price }}</td>
+                <td class="custom-cell">{{ order.shipping_address }}</td>
+                <td class="custom-cell">{{ order.created_at }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p align="center"><a href="/profile_page">Back to Profile Page</a></p>
+{% endblock %}

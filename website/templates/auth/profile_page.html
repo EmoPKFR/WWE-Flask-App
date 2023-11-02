@@ -9,7 +9,7 @@
 <form method="POST">
     <h3 align="center">Hi, {{user.username}}</h3>
     <div class="form-group">
-        <p align="center">Here you can change your password, delete your account or add/change a payment card.</p>
+        <p align="center">Here you can change your password, delete your account, add/change a payment card, or view your orders history.</p>
     </div>
     <br>
     <button type="submit" class="btn btn-primary custom-size-btn" name="change_password">Change Password</button>
@@ -18,8 +18,12 @@
     <br>
     {% if user_has_payment_card %}
     <button type="submit" class="btn btn-success custom-size-btn" name="add_payment_card">Change Payment Card</button>
+    <br>
     {% else %}
     <button type="submit" class="btn btn-success custom-size-btn" name="add_payment_card">Add Payment Card</button>
+    <br>
     {% endif %}
+    <button type="submit" class="btn btn-info custom-size-btn" name="orders_history">Orders History</button>
+    <br>
 </form>
 {%endblock%}

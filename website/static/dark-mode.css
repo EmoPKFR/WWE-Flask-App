@@ -115,3 +115,26 @@ body {
     display: inline; /* Set display to "inline" for inline elements */
     margin-right: 10px; /* Add some spacing between elements */
 }
+
+/* Override the width of the custom table class */
+.custom-table {
+    width: 80%;
+	margin: 0 auto; /* Horizontally center the table */
+	border: 5px solid #ddd; /* Add border with your desired style and color */
+    border-radius: 5px; /* Add rounded corners to the table */
+}
+
+.custom-header {
+    border: 5px solid #ddd; /* Add border between header and cells */
+    padding: 10px; /* Add padding to headers for spacing */
+    text-align: center; /* Center text in headers */
+}
+
+.custom-cell {
+    border: 5px solid #ddd; /* Add border between cells */
+    padding: 10px; /* Add padding to cells for spacing */
+}
+
+.custom-table tbody tr:first-child {
+    border: 5px solid #ddd; /* Different border style for the first row */
+}

@@ -110,6 +110,8 @@ def profile_page():
             return redirect(url_for("auth.delete_account"))
         if "add_payment_card" in request.form:
             return redirect(url_for("auth.add_payment_card"))
+        if "orders_history" in request.form:
+            return redirect(url_for("views.orders_history"))
     
     # Check if the user has a payment card
     user_has_payment_card = bool(current_user.card_number)
