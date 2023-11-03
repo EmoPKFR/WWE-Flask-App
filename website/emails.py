@@ -1,3 +1,4 @@
+import os
 from flask import Blueprint, render_template, flash, redirect, url_for, session, request
 from .models import User, Order
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -270,6 +271,8 @@ def send_email_order():
         'cart': cart,
         'confirmation_token1': confirmation_token1
     }
+    
+    session["data"] = data
 
     msg.html = render_template("emails/confirm_order.html", data=data, confirm_order_token=confirmation_token1)
 
@@ -298,6 +301,9 @@ def confirm_order(confirm_order_token):
         new_order = Order(products=products , total_price=total_price, shipping_address=shipping_address,
                                 email=current_user.email, username=current_user.username)
         
+        # Send an email to the admin with the order details
+        send_email_to_admin_on_order_confirmation()
+        
         db.session.add(new_order)
         db.session.commit()
 
@@ -308,3 +314,18 @@ def confirm_order(confirm_order_token):
     else:
         flash("Invalid or expired confirmation link", category="error")
         return render_template("redirect_from_email_links/invalid_or_expired_link.html", user=current_user)
+    
+    
+def send_email_to_admin_on_order_confirmation():
+    msg_title = "New order confirmation"
+    sender = "noreply@app.com"
+    msg = Message(msg_title, sender=sender, recipients=[os.environ.get("MAIL_USERNAME")])
+    
+    data = session.get("data")
+
+    msg.html = render_template("emails/admin_confirm_order.html", user=current_user, data=data)
+
+    try:
+        mail.send(msg)
+    except Exception as e:
+        print(e)
