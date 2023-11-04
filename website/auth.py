@@ -59,16 +59,16 @@ def register():
         username_check = User.query.filter_by(username=username).first()
         if user:
             flash("Email already exists.", category="error")
-        elif len(email) < 3:
-            flash("Email must be greater than 2 characters.", category="error")
+        elif len(email) < 7:
+            flash("Email must be at least 7 characters.", category="error")
         elif username_check:
             flash("Username already exists.", category="error")
-        elif len(username) <= 2:
-            flash("Username must be greater than 2 characters.", category="error")
+        elif len(username) < 5:
+            flash("Username must be at least 5 characters.", category="error")
         elif password1 != password2:
             flash("Passwords don't match.", category="error")
-        elif len(password1) < 3:
-            flash("Password must be at least 3 characters.", category="error")
+        elif len(password1) < 8:
+            flash("Password must be at least 8 characters.", category="error")
         elif not card_number and not expiry_date and not cvv:
             session["email"] = email
             session["username"] = username
@@ -133,8 +133,8 @@ def change_password():
                 flash("Wrong password.", category="error")
         elif old_password == new_password1:
             flash("New password must be different than old password.", category="error")
-        elif new_password1 == new_password2 and len(new_password1) < 3:
-            flash("Passwords must be at least 3 characters.", category="error")
+        elif new_password1 == new_password2 and len(new_password1) < 8:
+            flash("Password must be at least 8 characters.", category="error")
         elif new_password1 != new_password2:
             flash("Passwords must match.", category="error")
         else:
@@ -155,8 +155,8 @@ def forgot_password():
         
         if new_password1 != new_password2:
             flash("Passwords don't match.", category="error")
-        elif len(new_password1) < 3:
-            flash("Password must be at least 3 characters.", category="error")
+        elif len(new_password1) < 8:
+            flash("Password must be at least 8 characters.", category="error")
         elif user and check_password_hash(user.password, new_password1):
             flash("New password must be different than old password.", category="error")
         else:
@@ -256,8 +256,7 @@ def database():
     return render_template("auth/database.html", user=current_user, users=users, orders=orders)
 
 
-
-# @auth.route('/<path:path>')
-# def catch_all(path):
-#     # Here, you can generate or render example HTML or return a custom error page
-#     return render_template("auth/catch_all_routes.html")
+@auth.route('/<path:path>')
+def catch_all(path):
+    # Here, you can generate or render example HTML or return a custom error page
+    return render_template("auth/catch_all_routes.html")

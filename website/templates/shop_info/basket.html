@@ -33,7 +33,7 @@
     <h2>Total Amount: {{ formatted_total_amount_str }}€</h2>
     <p>(If Total Amount is 500€ or more, you will get 10% discount.)</p>
     {%endif%}
-    <a href="/shop">Add Product/Products</a>
+    <p><a href="/shop">Add Product/Products</a></p>
     {%if total_amount > 0%}
     <form method="POST">
         <div class="form-group">
@@ -42,7 +42,7 @@
             <textarea id="shipping_address" name="shipping_address" rows="4" cols="70" minlength="20" maxlength="1000"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-success custom-size-btn">Buy</button>
+        <button type="submit" class="btn btn-success custom-size-btn buy-button">Buy</button>
     </form>
     {%endif%}
 </div>

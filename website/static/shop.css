@@ -1,48 +1,40 @@
 .image-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 80%;
-    margin: auto;
-  }
-  
-  .image-container:nth-child(2) {
-    justify-content: flex-start; /* Align the single image to the left in the second row */
-  }
-  
-  .image-item {
-    flex: 1;
-    max-width: calc(33.333% - 50px); /* Adjust the width and margin as needed */
-    margin: 25px;
-    box-sizing: border-box;
-    text-align: center;
-  }
-  
-  .image-item img {
-    width: 100%; /* Force all images to have the same width */
-    height: 300px; /* Set a fixed height for all images, adjust as needed */
-    object-fit: contain;
-  }
-  
-  .image-item p {
-    margin-top: 10px;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center items on all screen sizes */
+  margin: 0 auto; /* Center the container */
+  max-width: 90%; /* Ensure the container doesn't exceed the screen width */
+}
+
+.image-item {
+  flex: 1;
+  max-width: calc(50% - 20px); /* Adjust the width and margin as needed */
+  margin: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.image-item img {
+  max-width: 100%; /* Ensure the image doesn't exceed its container's width */
+  height: auto; /* Allow the image to maintain its aspect ratio */
+  max-height: 100%; /* Set a maximum height relative to the container */
+}
+
+.image-item p {
+  margin-top: 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+}
+
+/* Media query for screens smaller than 768px (typical smartphones) */
+@media (max-width: 768px) {
+  .image-container {
+    flex-direction: column; /* Display items in a column for small screens */
   }
 
-  /* This is for the link for second page */
-  .button-link {
-    display: inline-block;
-    padding: 10px 20px; /* Adjust padding as needed */
-    background-color: #007BFF; /* Change to your desired button background color */
-    color: #fff; /* Text color */
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: wait;
-    transition: background-color 0.9s ease;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .image-item {
+    max-width: 100%; /* Use full width for image items on small screens */
   }
+}
