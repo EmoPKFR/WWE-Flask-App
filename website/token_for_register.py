@@ -12,7 +12,7 @@ def store_token_in_database(token, user_email):
     """Stores a token in the database for a given user email."""
 
     # Create a new token record
-    token_record = TokenForRegister(token=token, user_email=user_email, expiration_date=datetime.datetime.utcnow() + datetime.timedelta(hours=24))
+    token_record = TokenForRegister(token=token, user_email=user_email, expiration_date=datetime.datetime.utcnow() + datetime.timedelta(seconds=15))
 
     # Add the token record to the database
     db.session.add(token_record)

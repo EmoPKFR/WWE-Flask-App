@@ -1,5 +1,6 @@
 import secrets
 import string
+import pytz #for time zones
 from flask_login import current_user
 from . import db # This means from __init__.py import db
 
@@ -11,7 +12,7 @@ from .models import ConfirmationToken
 from datetime import datetime, timedelta
 
 def store_token_in_database(token):
-    expiration_time = datetime.now() + timedelta(hours=24)  # Token expires in 24 hours
+    expiration_time = datetime.now() + timedelta(seconds=15)  # Token expires in 24 hours
 
     # Create a new record in your database
     new_token = ConfirmationToken(token=token,  user_id=current_user.id, expiration_time=expiration_time)

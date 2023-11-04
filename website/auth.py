@@ -52,6 +52,8 @@ def register():
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
         card_number = request.form.get("card_number")
+        # Remove spaces from the card number
+        card_number = card_number.replace(" ", "")
         expiry_date = request.form.get("expiry_date")
         cvv = request.form.get("cvv")
         
@@ -78,8 +80,8 @@ def register():
             session["cvv"] = None
             return redirect(url_for("emails.send_email_register"))
         elif card_number and expiry_date and cvv:
-            if not card_number.isdigit() or len(card_number) != 10:
-                flash("Card number must be exact 10 digits.", category="error")
+            if len(card_number) != 16:
+                flash("Card number must be exact 16 digits.", category="error")
             elif not cvv.isdigit() or len(cvv) != 3:
                 flash("CVV must be exact 3 digits.", category="error")
             else:
@@ -90,11 +92,6 @@ def register():
                 session["expiry_date"] = expiry_date
                 session["cvv"] = generate_password_hash(cvv, method="sha256")
                 return redirect(url_for("emails.send_email_register"))
-                # db.session.add(new_user)
-                # db.session.commit()
-                # login_user(new_user, remember=True) 
-                # flash("Account created!", category="success")
-                # return redirect(url_for("views.home"))
         else:
             flash("You have to fill Card Number, Expiry date and CVV or leave them Null.", category="error")
         
