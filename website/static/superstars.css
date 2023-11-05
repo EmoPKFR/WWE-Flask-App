@@ -1,30 +1,29 @@
 .image-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center items on all screen sizes */
-  margin: 0 auto; /* Center the container */
-  max-width: 90%; /* Ensure the container doesn't exceed the screen width */
+  width: 90%;
+  margin: auto;
 }
 
 .image-item {
   flex: 1;
-  max-width: calc(50% - 20px); /* Adjust the width and margin as needed */
-  margin: 20px;
+  max-width: calc(25% - 50px); /* Adjust the width and margin as needed */
+  margin: 25px;
   box-sizing: border-box;
-  text-align: center;
+  text-align: center; /* Center-align the content */
 }
 
 .image-item img {
-  max-width: 100%; /* Ensure the image doesn't exceed its container's width */
-  height: auto; /* Allow the image to maintain its aspect ratio */
-  max-height: 100%; /* Set a maximum height relative to the container */
+  width: 100%;
+  height: auto; /* Set a fixed height for the images */
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
 }
 
 .image-item p {
-  margin-top: 10px;
+  margin-top: 10px; /* Add spacing between image and text */
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1 {
   text-align: center;
 }
 

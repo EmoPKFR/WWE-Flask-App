@@ -17,7 +17,7 @@
     cursor: pointer;
 }
 
-h2, p, label {
+h1, h2, p, label {
     margin-left: 20px;
     margin-right: 20px;
 }

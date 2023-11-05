@@ -16,7 +16,7 @@
 }
 
 /* Center the <p> elements */
-p {
+.login_register_p {
   text-align: center; /* Center-align the text */
   margin-left: auto;
   margin-right: auto;

@@ -233,18 +233,15 @@ def admin():
         else:
             flash("Wrong password", category="error")
         
-    
     return render_template("auth/admin.html", user=current_user)
 
-@auth.route("/database", methods=["GET", "POST"])
+@auth.route("/database")
 def database():
-    if request.method == "POST":
-        pass
-    
     if not session.get('admin_authenticated'):  # Check if the user is authenticated
         flash("Please log in as admin first", category="error")
         return redirect(url_for("auth.admin"))
     
+    session['admin_authenticated'] = False
     users = User.query.all()
     orders = Order.query.all()
     print(users)  # Debug statement
