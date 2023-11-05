@@ -8,7 +8,7 @@ from flask_mail import Message
 from . import mail  # Import the create_app function
 from .tokens import (generate_unique_token, store_token_in_database as store_token_in_database1,
     retrieve_order_data_from_token, invalidate_token as invalidate_token1)
-from .token_for_register import store_token_in_database as store_token_in_database2, verify_token,invalidate_token as invalidate_token2
+from .token_for_register import store_token_in_database as store_token_in_database2, verify_token,invalidate_token as invalidate_token2, delete_token
 
 emails = Blueprint("emails", __name__)
 
@@ -71,6 +71,9 @@ def confirm_register(token):
 
         # Invalidate the token immediately after the user clicks on the link
         invalidate_token2(token)
+        
+        # Delete the token from the database
+        delete_token(token)
 
         return render_template("redirect_from_email_links/register_success.html", user=current_user)
     else:
