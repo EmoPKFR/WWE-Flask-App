@@ -11,14 +11,6 @@ views = Blueprint("views", __name__)
 def home():
     return render_template("home.html", user=current_user)
 
-@views.route("/all_superstars")
-def all_superstars():
-    return render_template("superstars_info/all_superstars.html", user=current_user)
-
-@views.route("/champions")
-def champions():
-    return render_template("superstars_info/champions.html", user=current_user)
-
 @views.route("/shop")
 def shop():
     return render_template("shop_info/shop.html", user=current_user)

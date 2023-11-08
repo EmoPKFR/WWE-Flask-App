@@ -1,29 +1,26 @@
-{%extends "base.html"%}
-
-{%block title%}Profile Page{%endblock%}
-{%block custom_css%}
+{% extends "base.html" %}
+{% block title %}Profile Page{% endblock %}
+{% block custom_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='dark-mode.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='profile_page.css') }}">
-{%endblock%}
-{%block content%}
-<form method="POST">
-    <h3 align="center">Hi, {{user.username}}</h3>
-    <div class="form-group">
-        <p align="center">Here you can change your password, delete your account, add/change a payment card, or view your orders history.</p>
-    </div>
-    <br>
-    <button type="submit" class="btn btn-primary custom-size-btn" name="change_password">Change Password</button>
-    <br>
-    <button type="submit" class="btn btn-danger custom-size-btn" name="delete_account">Delete Account</button>
-    <br>
-    {% if user_has_payment_card %}
-    <button type="submit" class="btn btn-success custom-size-btn" name="add_payment_card">Change Payment Card</button>
-    <br>
-    {% else %}
-    <button type="submit" class="btn btn-success custom-size-btn" name="add_payment_card">Add Payment Card</button>
-    <br>
-    {% endif %}
-    <button type="submit" class="btn btn-info custom-size-btn" name="orders_history">Orders History</button>
-    <br>
-</form>
-{%endblock%}
+{% endblock %}
+{% block content %}
+<h3 align="center">Hi, {{ user.username }}</h3>
+<div class="form-group">
+    <p align="center">Here you can change your password, delete your account, add/change a payment card, or view your orders history.</p>
+</div>
+<br>
+<a class="btn btn-primary custom-size-btn" href="{{ url_for('auth.change_password') }}">Change Password</a>
+<br>
+<a class="btn btn-danger custom-size-btn" href="{{ url_for('auth.delete_account') }}">Delete Account</a>
+<br>
+{% if user_has_payment_card %}
+<a class="btn btn-success custom-size-btn" href="{{ url_for('auth.add_payment_card') }}">Change Payment Card</a>
+<br>
+{% else %}
+<a class="btn btn-success custom-size-btn" href="{{ url_for('auth.add_payment_card') }}">Add Payment Card</a>
+<br>
+{% endif %}
+<a class="btn btn-info custom-size-btn" href="{{ url_for('views.orders_history') }}">Orders History</a>
+<br>
+{% endblock %}

@@ -49,3 +49,14 @@
     margin: 0 auto; /* Center the button horizontally */
     margin-bottom: 40px; /* Add margin to create space between the link and the footer */
 }
+
+@media (max-width: 768px) {
+  .image-container {
+    flex-direction: column; /* Display items in a column for small screens */
+  }
+
+  .image-item {
+    max-width: 100%; /* Use full width for image items on small screens */
+    margin: 10px;
+  }
+}

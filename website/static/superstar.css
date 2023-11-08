@@ -1,0 +1,38 @@
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center items horizontally */
+    width: 100%;
+    margin: auto;
+    text-align: center;
+  }  
+
+.image-item {
+    flex: 1;
+    max-width: calc(25% - 50px); /* Adjust the width and margin as needed */
+    margin: 25px;
+    box-sizing: border-box;
+    text-align: center; /* Center-align the content */
+  }
+  
+  .image-item img {
+    width: 100%;
+    height: auto; /* Set a fixed height for the images */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+  }
+  
+  .image-item h3 {
+    margin-top: 10px; /* Add spacing between image and text */
+  }
+  
+
+  /* Media query for screens smaller than 768px (typical smartphones) */
+  @media (max-width: 768px) {
+    .image-container {
+      flex-direction: column; /* Display items in a column for small screens */
+    }
+  
+    .image-item {
+      max-width: 100%; /* Use full width for image items on small screens */
+    }
+  }

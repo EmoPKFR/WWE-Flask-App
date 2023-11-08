@@ -1,0 +1,22 @@
+{%extends "base.html"%}
+
+{%block title%}Rey Mysterio{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="{{ url_for('static', filename='dark-mode.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='superstar.css') }}">
+{%endblock%}
+{%block content%}
+<br>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Rey_Mysterio.jpg') }}" alt="Image 1">
+        <h3 align="center">Rey Mysterio</h3>
+        <p>Rey Mysterio, whose real name is Óscar Gutiérrez, is a legendary WWE superstar known for his high-flying acrobatics.
+            He was born on December 11, 1974, and hails from San Diego, California.
+            Mysterio's lucha libre style, characterized by incredible agility and masked persona, has made him an iconic figure in professional wrestling.
+            He is one of the most celebrated cruiserweights in WWE history, having won several championships, including the WWE Cruiserweight Championship.
+            Rey Mysterio's high-energy matches and underdog persona have endeared him to fans worldwide, earning him a place in the hearts of wrestling enthusiasts.
+            Over his illustrious career, Rey Mysterio has competed against some of the biggest names in wrestling and has inspired a new generation of high-flyers.</p>
+    </div>
+</div>
+{%endblock%}

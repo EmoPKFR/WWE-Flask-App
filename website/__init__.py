@@ -34,11 +34,13 @@ def create_app():
     from .auth import auth
     from .shows import shows
     from .emails import emails
+    from .superstars import superstars
     
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
     app.register_blueprint(shows, url_prefix="/")
     app.register_blueprint(emails, url_prefix="/")
+    app.register_blueprint(superstars, url_prefix="/")
     
     from .models import User
     

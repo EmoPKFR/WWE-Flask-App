@@ -97,19 +97,9 @@ def register():
         
     return render_template("auth/register.html", user=current_user)
 
-@auth.route("/profile_page", methods=["GET", "POST"])
+@auth.route("/profile_page")
 @login_required
 def profile_page():
-    if request.method == "POST":
-        if "change_password" in request.form:
-            return redirect(url_for("auth.change_password"))
-        if "delete_account" in request.form:
-            return redirect(url_for("auth.delete_account"))
-        if "add_payment_card" in request.form:
-            return redirect(url_for("auth.add_payment_card"))
-        if "orders_history" in request.form:
-            return redirect(url_for("views.orders_history"))
-    
     # Check if the user has a payment card
     user_has_payment_card = bool(current_user.card_number)
 

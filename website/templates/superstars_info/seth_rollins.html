@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+
+{%block title%}Seth "Freakin" Rollins{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="{{ url_for('static', filename='dark-mode.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='superstar.css') }}">
+{%endblock%}
+{%block content%}
+<br>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Seth_Rollins.jpg') }}" alt="Image 1">
+        <h3 align="center">Seth "Freakin" Rollins</h3>
+        <p>Seth Rollins, born Colby Daniel Lopez on May 28, 1986, is a well-known WWE superstar.
+            He is recognized for his wrestling agility and charismatic personality.
+            Rollins has held multiple WWE Championships, including the WWE Universal Championship and the WWE World Heavyweight Championship.
+            He is known for his finishing move, "The Stomp," which has become one of the most iconic moves in WWE.
+            Seth Rollins has also been a prominent member of popular factions such as The Shield and The Authority.
+            His wrestling style and dedication to his craft have made him a fan favorite in the world of professional wrestling.</p>
+    </div>
+</div>
+{%endblock%}
+

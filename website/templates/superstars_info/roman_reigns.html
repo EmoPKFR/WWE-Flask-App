@@ -1,0 +1,22 @@
+{%extends "base.html"%}
+
+{%block title%}Roman Reigns{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="{{ url_for('static', filename='dark-mode.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='superstar.css') }}">
+{%endblock%}
+{%block content%}
+<br>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Roman_Reigns.jpg') }}" alt="Image 1">
+        <h3 align="center">Roman Reigns</h3>
+        <p>Roman Reigns, whose real name is Leati Joseph Anoa'i, was born on May 25, 1985.
+            He is an American professional wrestler and former American football player.
+            Reigns is currently signed to WWE and performs on the SmackDown brand.
+            He is best known for his in-ring persona as "The Big Dog" and is considered one of the most dominant figures in professional wrestling today.
+            Roman Reigns has held the WWE Universal Championship and the WWE Championship multiple times, earning him the title of the "Undisputed WWE Universal Champion."
+            He is also the leader of The Bloodline stable and a proud member of the renowned Anoa'i wrestling family, making him a significant figure in WWE history.</p>
+    </div>
+</div>
+{%endblock%}

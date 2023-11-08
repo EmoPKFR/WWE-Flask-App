@@ -1,0 +1,25 @@
+{%extends "base.html"%}
+
+{%block title%}Carmelo Hayes{%endblock%}
+{%block custom_css%}
+<link rel="stylesheet" href="{{ url_for('static', filename='dark-mode.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='superstar.css') }}">
+{%endblock%}
+{%block content%}
+<br>
+<div class="image-container">
+    <div class="image-item">
+        <img src="{{ url_for('static', filename='images/superstars_images/Carmelo_Hayes.jpg') }}" alt="Image 1">
+        <h3 align="center">Carmelo Hayes</h3>
+        <p>Carmelo Hayes is a young and talented wrestler with a bright future ahead of him. He is sure to make a big impact in the WWE.
+            Carmelo Hayes is one of the most exciting young wrestlers in the WWE today. He is a must-watch performer.
+            Carmelo Hayes is a future WWE Champion. Mark my words.
+            Carmelo Hayes is also a standout athlete. He was a four-year letterman in football, basketball,
+            and track and field at Greendale High School in Millington, Tennessee. He was also a member of the National Honor Society.
+            Carmelo Hayes was also a standout athlete in college. He played football at the University of Memphis, where he was a member
+            of the scout team. He also ran track and field at Memphis, where he was a member of the 4x400 meter relay team that won the
+            American Athletic Conference championship in 2017.
+        </p>
+    </div>
+</div>
+{%endblock%}
