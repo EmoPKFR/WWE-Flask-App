@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 from flask_session import Session
 from flask_mail import Mail
 
+
 db = SQLAlchemy()
 mail = Mail()  # Create 'mail' object at the module level
 
@@ -56,7 +57,26 @@ def create_app():
     
     return app
 
+from .models import User
+from werkzeug.security import generate_password_hash
+
 def create_database(app):
     with app.app_context():
         db.create_all()
         print("Created Database!")
+        
+        # Create admin user
+        admin_email = "emililiev2001@abv.bg"
+        admin_username = "admin"
+        admin_password = "aaa"
+        
+        
+        
+        admin = User.query.filter(User.email == admin_email).first()
+        if not admin:
+            admin = User(email=admin_email, username=admin_username, password=generate_password_hash(admin_password), role='admin')
+            db.session.add(admin)
+            db.session.commit()
+            print("Admin user created!")
+        else:
+            print("Admin user already exists.")

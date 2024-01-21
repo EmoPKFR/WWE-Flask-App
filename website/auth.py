@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session, abort
 from .models import User, Order
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db # This means from __init__.py import db
@@ -6,6 +6,16 @@ from flask_login import login_user, login_required, logout_user, current_user
 from functools import wraps
 
 auth = Blueprint("auth", __name__)
+
+def admin_required(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        if current_user.role != 'admin':
+            abort(403)  # Forbidden
+        return fn(*args, **kwargs)
+    return wrapper
+
+
 
 def not_logged_in_required_with_message(message_category, message):
     def decorator(view_func):
@@ -30,7 +40,11 @@ def login():
             if check_password_hash(user.password, password):
                 flash("Logged in successfully!", category="success")
                 login_user(user, remember=True)
-                return redirect(url_for("views.home"))
+                
+                if user.role == "admin":
+                    return redirect(url_for("views.admin_dashboard"))
+                else:
+                    return redirect(url_for("views.home"))
             else:
                 flash("Incorrect password, try again.", category="error")
         else:

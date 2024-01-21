@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     cvv = db.Column(db.Integer, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now)
     orders = db.relationship("Order")
-    
+    role = db.Column(db.String(20), nullable=False, default='user')
     
     # Define the back-reference to the orders in the Order model
     orders = relationship("Order", back_populates="user")

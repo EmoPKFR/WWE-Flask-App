@@ -1,10 +1,17 @@
 import json
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, abort
 from flask_login import login_required, current_user
 from .models import Order
+from .auth import admin_required
 
 views = Blueprint("views", __name__)
 
+@views.route("/admin_dashboard")
+def admin_dashboard():
+    if current_user.is_authenticated and current_user.role == 'admin':
+        return render_template('admin_dashboard.html', user=current_user)
+    else:
+        return render_template("auth/catch_all_routes.html")
 
 @views.route("/")
 @views.route("/home")
