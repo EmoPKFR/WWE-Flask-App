@@ -16,6 +16,30 @@ def admin_required(fn):
     return wrapper
 
 
+@auth.route("/admin_dashboard")
+def admin_dashboard():
+    if current_user.is_authenticated and current_user.role == 'admin':
+        return render_template('admin_dashboard.html', user=current_user)
+    else:
+        return render_template("auth/catch_all_routes.html")
+
+@auth.route("/delete_user/<int:user_id>", methods=["POST"])
+@admin_required
+def delete_user(user_id):
+    user_to_delete = User.query.get(user_id)
+
+    if user_to_delete:
+        if user_to_delete.id != current_user.id:  # Avoid deleting the currently logged-in admin
+            db.session.delete(user_to_delete)
+            db.session.commit()
+            flash("User deleted successfully.", category="success")
+        else:
+            flash("Cannot delete yourself.", category="error")
+    else:
+        flash("User not found.", category="error")
+
+    return redirect(url_for("auth.database"))
+
 
 def not_logged_in_required_with_message(message_category, message):
     def decorator(view_func):
@@ -42,7 +66,7 @@ def login():
                 login_user(user, remember=True)
                 
                 if user.role == "admin":
-                    return redirect(url_for("views.admin_dashboard"))
+                    return redirect(url_for("auth.admin_dashboard"))
                 else:
                     return redirect(url_for("views.home"))
             else:

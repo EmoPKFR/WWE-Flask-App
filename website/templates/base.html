@@ -29,7 +29,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
-        {%if user.is_authenticated%}
+        {%if not user.is_authenticated%}
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
             <a class="nav-link" href="/home"><img src="{{ url_for('static', filename='images/logo_images/home_button.png') }}" width="30" height="30" alt="Home button"></a>
@@ -48,6 +48,42 @@
           <li class="nav-item active">
               <a class="nav-link" href="/shop">SHOP</a>
           </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right align-items-center">
+          Light/Dark mode ->
+          <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider"></span>
+          </label>
+          <li class="nav-item active">
+              <a class="nav-link" href="/login">Log In</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="/register">Register</a>
+          </li>
+        </ul>
+        {%elif user.role == "admin"%}
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/home"><img src="{{ url_for('static', filename='images/logo_images/home_button.png') }}" width="30" height="30" alt="Home button"></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/shows">SHOWS</a>
+          </li>
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              SUPERSTARS
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/all_superstars">All Superstars</a>
+              <a class="dropdown-item" href="/champions">Champions</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="/shop">SHOP</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/database">DATABASE</a>
+        </li>
         </ul>
         <ul class="nav navbar-nav navbar-right align-items-center">
           Light/Dark mode ->
@@ -92,10 +128,13 @@
             <span class="slider"></span>
           </label>
           <li class="nav-item active">
-              <a class="nav-link" href="/login">Log In</a>
+            <a class="nav-link" href="/profile_page"><img src="{{ url_for('static', filename='images/logo_images/profile_logo.jpg') }}" width="50" height="30" alt="Profile page"></a>
           </li>
           <li class="nav-item active">
-              <a class="nav-link" href="/register">Register</a>
+            <a class="nav-link" href="/basket"><img src="{{ url_for('static', filename='images/logo_images/basket.jpg') }}" width="50" height="30" alt="Basket"></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/logout">Logout</a>
           </li>
         </ul>
         {%endif%}
