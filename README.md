@@ -1,3 +1,10 @@
+Key Features:
+1. User profiles: Registration and Login; Password management
+2. E-commerce: Product catalog; Discount after a certain amount; Order confirmation emails
+3. Role-based access: Admin and User roles; Admin dashboard
+4. Security measures: Data protection; Data security
+
+
 Requirements to run the Flask App:
 
 1. Install requirements.txt (pip install -r requirements.txt)
