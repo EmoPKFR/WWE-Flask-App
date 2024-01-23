@@ -1,4 +1,4 @@
-Requiremnts to run the Flask App:
+Requirements to run the Flask App:
 
 1. Install requirements.txt (pip install -r requirements.txt)
 
