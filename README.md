@@ -50,7 +50,7 @@ Clicking on Basket/Cart
 Clicking on Profile page
 ![click_on_the_profile_page](https://github.com/EmoPKFR/WWE-Flask-App/assets/85705360/b0361fcf-8849-400f-a88e-4eb16d84acb0)
 Change password form
-![change_password_form](https://github.com/EmoPKFR/WWE-Flask-App/assets/85705360/ad575ca5-dfef-40db-9143-300313d99082)
+![change_password_form](https://github.com/EmoPKFR/WWE-Flask-App/assets/85705360/46e13d21-a396-467e-8525-ed9cb143c1a4)
 Orders history
 ![Orders_history](https://github.com/EmoPKFR/WWE-Flask-App/assets/85705360/916cf367-a9b4-4fce-beb7-ff9234b4dd0d)
 Shows image 1
