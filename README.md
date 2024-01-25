@@ -21,3 +21,12 @@ app.config['MAIL_PASSWORD'] =  "you can check about this on the web"
 
 4. You can go to /database route
 The Admin password is: aaa
+
+Screenshots:
+
+Register form
+![Register form](https://github.com/EmoPKFR/WWE-Flask-App/assets/85705360/e443076b-0c28-4db3-a698-4c2f4092ddc1)
+Login form
+![Login form](https://github.com/EmoPKFR/WWE-Flask-App/assets/85705360/5ee185e7-b61e-41cb-825f-c110930e14c4)
+
+
